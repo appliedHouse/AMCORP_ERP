@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SetupDBEngine" Type="System.String" Scope="User">
+      <Value Profile="(Default)">(LocalDB)</Value>
+    </Setting>
+    <Setting Name="SetupDBInstance" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AMCORP_ERP1</Value>
+    </Setting>
+    <Setting Name="SetupDBLogin" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AppliedLogin</Value>
+    </Setting>
+    <Setting Name="SetupDBPWHash" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SzEw4tUbceDbokUAQ9M3JRCGnExhi9S3</Value>
+    </Setting>
+    <Setting Name="SetupDBPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">E:\AMCORP_ERP_APP\Setup_Database\</Value>
+    </Setting>
+    <Setting Name="PWChar" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#</Value>
+    </Setting>
+    <Setting Name="PWWrapper" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AMCORP</Value>
+    </Setting>
+    <Setting Name="DateFormat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">dd-MMM-yyyy</Value>
+    </Setting>
+    <Setting Name="AmountFormat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">_(* #,##0_);_(* (#,##0);_(* - </Value>
+    </Setting>
+    <Setting Name="ReportFrom" Type="System.String" Scope="User">
+      <Value Profile="(Default)">2017-07-01</Value>
+    </Setting>
+    <Setting Name="CompanyName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AMCORP Engineering and Construction (Pvt) Limited</Value>
+    </Setting>
+    <Setting Name="CompanyAddress" Type="System.String" Scope="User">
+      <Value Profile="(Default)">LS-30, Block 13, F. B. Area, Karachi.</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
