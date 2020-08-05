@@ -130,6 +130,7 @@ Module CopyCOA_AG_JV_
     End Sub
 
 
+    <Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification:="<Pending>")>
     Private Sub RecordSave(_RecordID As Integer)
 
         Dim _Messages As New ArrayList
