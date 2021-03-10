@@ -130,7 +130,7 @@ Module CopyCOA_AG_JV_
     End Sub
 
 
-    <Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification:="<Pending>")>
+
     Private Sub RecordSave(_RecordID As Integer)
 
         Dim _Messages As New ArrayList
@@ -147,7 +147,7 @@ Module CopyCOA_AG_JV_
         End If
 
         Try
-            Dim _ResultRow As Integer = _SQLCommand.ExecuteNonQuery
+            'Dim _ResultRow As Integer = _SQLCommand.ExecuteNonQuery
             _Messages.Add("Records ")
             _Messages.Add(IIF(View_COA.Count = 0, "Insert ", "Update "))
             _Messages.Add("Record ID=" & _RecordID)
@@ -250,14 +250,13 @@ Module CopyCOA_AG_JV_
     End Function
 
     Private Function UpdateUnits(_COA As Integer, _Unit As Integer, _Company As Integer)
-
+        Dim _Result As String
         Dim IsError As Boolean = False
         Dim View_Table As New DataView
         View_Table.Table = Table_Units
         View_Table.RowFilter = String.Concat("ChartofAccountID=", _COA.ToString, " AND CompanyUnitID=", _Unit.ToString, " AND CompanyID=", _Company.ToString)
 
         Dim _SQLCommand As New SqlCommand("", Connection_Amcorp)
-
 
         If View_Table.Count = 0 Then
             _SQLCommand.CommandText = String.Concat("INSERT INTO ", Table_UnitName, " VALUES (", _COA, ",", _Unit, ",", _Company, ")")
@@ -268,10 +267,11 @@ Module CopyCOA_AG_JV_
             MsgBox("Two Records of same value found...", MsgBoxStyle.Critical, "ERROR")
         End If
 
-        Dim _Result As Integer = 0
+        'Dim _Result As Integer = 0
 
         If Not IsError Then
-            _Result = _SQLCommand.ExecuteNonQuery()
+            Dim EfectedRows As Integer
+            _SQLCommand.ExecuteNonQuery()
         End If
 
         'MsgBox(_Result.ToString & " Records " & IIF(View_Table.Count = 0, "Inserted.", "Updated."))

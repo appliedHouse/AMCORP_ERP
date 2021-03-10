@@ -47,6 +47,11 @@ Public Class frmSupplier_Ledger
         cboxProject.DataSource = DataView_Project
         cboxProject.ValueMember = "ProjectID"
         cboxProject.DisplayMember = "ProjectTitle"
+
+        dtReportTo.Value = Now
+
+
+
     End Sub
 
     Private Sub btnExit_Click(sender As Object, e As EventArgs) Handles btnExit.Click

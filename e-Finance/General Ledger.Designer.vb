@@ -69,6 +69,7 @@ Partial Class frmGeneralLedger
         '
         'dtFrom
         '
+        Me.dtFrom.CustomFormat = "dd-MMM-yyyy"
         Me.dtFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtFrom.Location = New System.Drawing.Point(102, 146)
         Me.dtFrom.Name = "dtFrom"
@@ -77,6 +78,7 @@ Partial Class frmGeneralLedger
         '
         'dtTo
         '
+        Me.dtTo.CustomFormat = "dd-MMM-yyyy"
         Me.dtTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtTo.Location = New System.Drawing.Point(265, 146)
         Me.dtTo.Name = "dtTo"

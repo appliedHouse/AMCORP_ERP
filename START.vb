@@ -49,8 +49,8 @@ Public Class START
 
     Private Sub mnuConnectionDataRecord_Click(sender As Object, e As EventArgs) Handles mnuConnectionDataRecord.Click
 
-        Dim Showform As New Connection_Class.frmConnection_Record(DB_Defaults)
-        Showform.Show()
+        'Dim Showform As New Connection_Class.frmConnection_Record(DB_Defaults)
+        'Showform.Show()
 
 
     End Sub

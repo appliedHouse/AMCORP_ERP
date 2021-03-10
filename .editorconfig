@@ -5,3 +5,6 @@ dotnet_diagnostic.CA1305.severity = none
 
 # CA2100: Review SQL queries for security vulnerabilities
 dotnet_diagnostic.CA2100.severity = silent
+
+# CA1304: Specify CultureInfo
+dotnet_diagnostic.CA1304.severity = none

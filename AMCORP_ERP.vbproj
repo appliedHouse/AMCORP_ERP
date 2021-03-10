@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props" Condition="Exists('packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" />
-  <Import Project="packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props" Condition="Exists('packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props')" />
-  <Import Project="packages\Microsoft.NetCore.Analyzers.2.9.8\build\Microsoft.NetCore.Analyzers.props" Condition="Exists('packages\Microsoft.NetCore.Analyzers.2.9.8\build\Microsoft.NetCore.Analyzers.props')" />
-  <Import Project="packages\Microsoft.CodeQuality.Analyzers.2.9.8\build\Microsoft.CodeQuality.Analyzers.props" Condition="Exists('packages\Microsoft.CodeQuality.Analyzers.2.9.8\build\Microsoft.CodeQuality.Analyzers.props')" />
-  <Import Project="packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props" Condition="Exists('packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" />
+  <Import Project="packages\SQLite.3.13.0\build\net45\SQLite.props" Condition="Exists('packages\SQLite.3.13.0\build\net45\SQLite.props')" />
+  <Import Project="packages\Microsoft.CodeAnalysis.FxCopAnalyzers.3.3.1\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props" Condition="Exists('packages\Microsoft.CodeAnalysis.FxCopAnalyzers.3.3.1\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" />
+  <Import Project="packages\Microsoft.NetFramework.Analyzers.3.3.1\build\Microsoft.NetFramework.Analyzers.props" Condition="Exists('packages\Microsoft.NetFramework.Analyzers.3.3.1\build\Microsoft.NetFramework.Analyzers.props')" />
+  <Import Project="packages\Microsoft.NetCore.Analyzers.3.3.1\build\Microsoft.NetCore.Analyzers.props" Condition="Exists('packages\Microsoft.NetCore.Analyzers.3.3.1\build\Microsoft.NetCore.Analyzers.props')" />
+  <Import Project="packages\Microsoft.CodeQuality.Analyzers.3.3.1\build\Microsoft.CodeQuality.Analyzers.props" Condition="Exists('packages\Microsoft.CodeQuality.Analyzers.3.3.1\build\Microsoft.CodeQuality.Analyzers.props')" />
+  <Import Project="packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.3.3.1\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props" Condition="Exists('packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.3.3.1\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -20,6 +21,9 @@
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -30,13 +34,11 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -48,7 +50,9 @@
     <DocumentationFile>
     </DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -56,7 +60,7 @@
     <DefineDebug>false</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>G:\Amcorp_ERP\</OutputPath>
     <DocumentationFile>
     </DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
@@ -79,13 +83,33 @@
   <PropertyGroup>
     <ApplicationIcon>Rocket.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>B0C893E8C687231FEDB490EA712A72E653E5A5E3</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>AMCORP_ERP_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="System" />
+    <Import Include="System.Data" />
+    <Import Include="System.Data.SqlClient" />
+    <Import Include="System.Text" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
+    <None Include="AMCORP_ERP_TemporaryKey.pfx" />
     <None Include="App.config" />
+    <None Include="My Project\app.manifest" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
@@ -96,64 +120,65 @@
     <Folder Include="System\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AMCORP_Modules.vb" />
-    <Compile Include="CopyCOA%28AG-JV%29.vb" />
-    <Compile Include="CopySupplierJV.vb" />
-    <Compile Include="DuplicateUser.Designer.vb">
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="Setup\AMCORP_Modules.vb" />
+    <Compile Include="e-Buyer\CopyCOA%28AG-JV%29.vb" />
+    <Compile Include="e-Buyer\CopySupplierJV.vb" />
+    <Compile Include="Setup\DuplicateUser.Designer.vb">
       <DependentUpon>DuplicateUser.vb</DependentUpon>
     </Compile>
-    <Compile Include="DuplicateUser.vb">
+    <Compile Include="Setup\DuplicateUser.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ERP_Connections.vb" />
-    <Compile Include="Excel_Reports.vb" />
-    <Compile Include="General Ledger.Designer.vb">
+    <Compile Include="Connection\ERP_Connections.vb" />
+    <Compile Include="Setup\Excel_Reports.vb" />
+    <Compile Include="e-Finance\General Ledger.Designer.vb">
       <DependentUpon>General Ledger.vb</DependentUpon>
     </Compile>
-    <Compile Include="General Ledger.vb">
+    <Compile Include="e-Finance\General Ledger.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GlobalSuppressions.vb" />
-    <Compile Include="Items.Designer.vb">
+    <Compile Include="e-Buyer\Items.Designer.vb">
       <DependentUpon>Items.vb</DependentUpon>
     </Compile>
-    <Compile Include="Items.vb">
+    <Compile Include="e-Buyer\Items.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Items_COA_TranType.Designer.vb">
+    <Compile Include="e-Buyer\Items_COA_TranType.Designer.vb">
       <DependentUpon>Items_COA_TranType.vb</DependentUpon>
     </Compile>
-    <Compile Include="Items_COA_TranType.vb">
+    <Compile Include="e-Buyer\Items_COA_TranType.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Items_Copy.Designer.vb">
+    <Compile Include="e-Buyer\Items_Copy.Designer.vb">
       <DependentUpon>Items_Copy.vb</DependentUpon>
     </Compile>
-    <Compile Include="Items_Copy.vb">
+    <Compile Include="e-Buyer\Items_Copy.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Join Ledgers.Designer.vb">
+    <Compile Include="e-Finance\Join Ledgers.Designer.vb">
       <DependentUpon>Join Ledgers.vb</DependentUpon>
     </Compile>
-    <Compile Include="Join Ledgers.vb">
+    <Compile Include="e-Finance\Join Ledgers.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MessageForm.Designer.vb">
+    <Compile Include="Setup\MessageForm.Designer.vb">
       <DependentUpon>MessageForm.vb</DependentUpon>
     </Compile>
-    <Compile Include="MessageForm.vb">
+    <Compile Include="Setup\MessageForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Migrations.Designer.vb">
+    <Compile Include="Setup\Migrations.Designer.vb">
       <DependentUpon>Migrations.vb</DependentUpon>
     </Compile>
-    <Compile Include="Migrations.vb">
+    <Compile Include="Setup\Migrations.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Migrations_Amcorp.Designer.vb">
+    <Compile Include="Setup\Migrations_Amcorp.Designer.vb">
       <DependentUpon>Migrations_Amcorp.vb</DependentUpon>
     </Compile>
-    <Compile Include="Migrations_Amcorp.vb">
+    <Compile Include="Setup\Migrations_Amcorp.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
@@ -166,34 +191,34 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Password Hash.Designer.vb">
+    <Compile Include="Setup\Password Hash.Designer.vb">
       <DependentUpon>Password Hash.vb</DependentUpon>
     </Compile>
-    <Compile Include="Password Hash.vb">
+    <Compile Include="Setup\Password Hash.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Payment Allocation.Designer.vb">
+    <Compile Include="Setup\Payment Allocation.Designer.vb">
       <DependentUpon>Payment Allocation.vb</DependentUpon>
     </Compile>
-    <Compile Include="Payment Allocation.vb">
+    <Compile Include="Setup\Payment Allocation.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Project_Allocation.Designer.vb">
+    <Compile Include="e-Buyer\Project_Allocation.Designer.vb">
       <DependentUpon>Project_Allocation.vb</DependentUpon>
     </Compile>
-    <Compile Include="Project_Allocation.vb">
+    <Compile Include="e-Buyer\Project_Allocation.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Project_Cost_Report.Designer.vb">
+    <Compile Include="e-Finance\Project_Cost_Report.Designer.vb">
       <DependentUpon>Project_Cost_Report.vb</DependentUpon>
     </Compile>
-    <Compile Include="Project_Cost_Report.vb">
+    <Compile Include="e-Finance\Project_Cost_Report.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Project_Expense_Report.Designer.vb">
+    <Compile Include="e-Buyer\Project_Expense_Report.Designer.vb">
       <DependentUpon>Project_Expense_Report.vb</DependentUpon>
     </Compile>
-    <Compile Include="Project_Expense_Report.vb">
+    <Compile Include="e-Buyer\Project_Expense_Report.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="START.Designer.vb">
@@ -202,28 +227,28 @@
     <Compile Include="START.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Supplier.Designer.vb">
+    <Compile Include="e-Buyer\Supplier.Designer.vb">
       <DependentUpon>Supplier.vb</DependentUpon>
     </Compile>
-    <Compile Include="Supplier.vb">
+    <Compile Include="e-Buyer\Supplier.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SupplierAging.Designer.vb">
+    <Compile Include="e-Buyer\SupplierAging.Designer.vb">
       <DependentUpon>SupplierAging.vb</DependentUpon>
     </Compile>
-    <Compile Include="SupplierAging.vb">
+    <Compile Include="e-Buyer\SupplierAging.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Supplier_Invoice_Adjuste.Designer.vb">
+    <Compile Include="e-Buyer\Supplier_Invoice_Adjuste.Designer.vb">
       <DependentUpon>Supplier_Invoice_Adjuste.vb</DependentUpon>
     </Compile>
-    <Compile Include="Supplier_Invoice_Adjuste.vb">
+    <Compile Include="e-Buyer\Supplier_Invoice_Adjuste.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Supplier_Ledger.Designer.vb">
+    <Compile Include="e-Buyer\Supplier_Ledger.Designer.vb">
       <DependentUpon>Supplier_Ledger.vb</DependentUpon>
     </Compile>
-    <Compile Include="Supplier_Ledger.vb">
+    <Compile Include="e-Buyer\Supplier_Ledger.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Data\Test Connection.Designer.vb">
@@ -243,8 +268,8 @@
     <Reference Include="APPLIED_TABLE_STD">
       <HintPath>..\..\Applied_GIT\APPLIED_TABLE\APPLIED_TABLE_STD\bin\Release\netstandard2.0\APPLIED_TABLE_STD.dll</HintPath>
     </Reference>
-    <Reference Include="Connection_Class_DLL">
-      <HintPath>..\..\Connection Class\Connection Class DLL\bin\Release\Connection_Class_DLL.dll</HintPath>
+    <Reference Include="Connection_Class">
+      <HintPath>..\..\Connection Class\Connection_Class_DLL\bin\Release\Connection_Class.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -265,39 +290,42 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SqlClient, Version=4.6.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>packages\System.Data.SqlClient.4.8.0-preview2.19523.17\lib\net461\System.Data.SqlClient.dll</HintPath>
+    <Reference Include="System.Data.4.0.0.0.Fakes">
+      <HintPath>FakesAssemblies\System.Data.4.0.0.0.Fakes.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SqlClient, Version=4.6.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Data.SqlClient.4.8.2\lib\net461\System.Data.SqlClient.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DuplicateUser.resx">
+    <EmbeddedResource Include="Setup\DuplicateUser.resx">
       <DependentUpon>DuplicateUser.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="General Ledger.resx">
+    <EmbeddedResource Include="e-Finance\General Ledger.resx">
       <DependentUpon>General Ledger.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Items.resx">
+    <EmbeddedResource Include="e-Buyer\Items.resx">
       <DependentUpon>Items.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Items_COA_TranType.resx">
+    <EmbeddedResource Include="e-Buyer\Items_COA_TranType.resx">
       <DependentUpon>Items_COA_TranType.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Items_Copy.resx">
+    <EmbeddedResource Include="e-Buyer\Items_Copy.resx">
       <DependentUpon>Items_Copy.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Join Ledgers.resx">
+    <EmbeddedResource Include="e-Finance\Join Ledgers.resx">
       <DependentUpon>Join Ledgers.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MessageForm.resx">
+    <EmbeddedResource Include="Setup\MessageForm.resx">
       <DependentUpon>MessageForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations.resx">
+    <EmbeddedResource Include="Setup\Migrations.resx">
       <DependentUpon>Migrations.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations_Amcorp.resx">
+    <EmbeddedResource Include="Setup\Migrations_Amcorp.resx">
       <DependentUpon>Migrations_Amcorp.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -305,34 +333,34 @@
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Password Hash.resx">
+    <EmbeddedResource Include="Setup\Password Hash.resx">
       <DependentUpon>Password Hash.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Payment Allocation.resx">
+    <EmbeddedResource Include="Setup\Payment Allocation.resx">
       <DependentUpon>Payment Allocation.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Project_Allocation.resx">
+    <EmbeddedResource Include="e-Buyer\Project_Allocation.resx">
       <DependentUpon>Project_Allocation.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Project_Cost_Report.resx">
+    <EmbeddedResource Include="e-Finance\Project_Cost_Report.resx">
       <DependentUpon>Project_Cost_Report.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Project_Expense_Report.resx">
+    <EmbeddedResource Include="e-Buyer\Project_Expense_Report.resx">
       <DependentUpon>Project_Expense_Report.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="START.resx">
       <DependentUpon>START.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Supplier.resx">
+    <EmbeddedResource Include="e-Buyer\Supplier.resx">
       <DependentUpon>Supplier.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SupplierAging.resx">
+    <EmbeddedResource Include="e-Buyer\SupplierAging.resx">
       <DependentUpon>SupplierAging.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Supplier_Invoice_Adjuste.resx">
+    <EmbeddedResource Include="e-Buyer\Supplier_Invoice_Adjuste.resx">
       <DependentUpon>Supplier_Invoice_Adjuste.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Supplier_Ledger.resx">
+    <EmbeddedResource Include="e-Buyer\Supplier_Ledger.resx">
       <DependentUpon>Supplier_Ledger.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Data\Test Connection.resx">
@@ -382,24 +410,40 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\analyzers\dotnet\Microsoft.CodeAnalysis.VersionCheckAnalyzer.dll" />
-    <Analyzer Include="packages\Microsoft.CodeQuality.Analyzers.2.9.8\analyzers\dotnet\vb\Humanizer.dll" />
-    <Analyzer Include="packages\Microsoft.CodeQuality.Analyzers.2.9.8\analyzers\dotnet\vb\Microsoft.CodeQuality.Analyzers.dll" />
-    <Analyzer Include="packages\Microsoft.CodeQuality.Analyzers.2.9.8\analyzers\dotnet\vb\Microsoft.CodeQuality.VisualBasic.Analyzers.dll" />
-    <Analyzer Include="packages\Microsoft.NetCore.Analyzers.2.9.8\analyzers\dotnet\vb\Microsoft.NetCore.Analyzers.dll" />
-    <Analyzer Include="packages\Microsoft.NetCore.Analyzers.2.9.8\analyzers\dotnet\vb\Microsoft.NetCore.VisualBasic.Analyzers.dll" />
-    <Analyzer Include="packages\Microsoft.NetFramework.Analyzers.2.9.8\analyzers\dotnet\vb\Microsoft.NetFramework.Analyzers.dll" />
-    <Analyzer Include="packages\Microsoft.NetFramework.Analyzers.2.9.8\analyzers\dotnet\vb\Microsoft.NetFramework.VisualBasic.Analyzers.dll" />
+    <Analyzer Include="packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.3.3.1\analyzers\dotnet\Microsoft.CodeAnalysis.VersionCheckAnalyzer.dll" />
+    <Analyzer Include="packages\Microsoft.CodeQuality.Analyzers.3.3.1\analyzers\dotnet\vb\Humanizer.dll" />
+    <Analyzer Include="packages\Microsoft.CodeQuality.Analyzers.3.3.1\analyzers\dotnet\vb\Microsoft.CodeQuality.Analyzers.dll" />
+    <Analyzer Include="packages\Microsoft.CodeQuality.Analyzers.3.3.1\analyzers\dotnet\vb\Microsoft.CodeQuality.VisualBasic.Analyzers.dll" />
+    <Analyzer Include="packages\Microsoft.NetCore.Analyzers.3.3.1\analyzers\dotnet\vb\Microsoft.NetCore.Analyzers.dll" />
+    <Analyzer Include="packages\Microsoft.NetCore.Analyzers.3.3.1\analyzers\dotnet\vb\Microsoft.NetCore.VisualBasic.Analyzers.dll" />
+    <Analyzer Include="packages\Microsoft.NetFramework.Analyzers.3.3.1\analyzers\dotnet\vb\Microsoft.NetFramework.Analyzers.dll" />
+    <Analyzer Include="packages\Microsoft.NetFramework.Analyzers.3.3.1\analyzers\dotnet\vb\Microsoft.NetFramework.VisualBasic.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.8\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props'))" />
-    <Error Condition="!Exists('packages\Microsoft.CodeQuality.Analyzers.2.9.8\build\Microsoft.CodeQuality.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeQuality.Analyzers.2.9.8\build\Microsoft.CodeQuality.Analyzers.props'))" />
-    <Error Condition="!Exists('packages\Microsoft.NetCore.Analyzers.2.9.8\build\Microsoft.NetCore.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.NetCore.Analyzers.2.9.8\build\Microsoft.NetCore.Analyzers.props'))" />
-    <Error Condition="!Exists('packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.NetFramework.Analyzers.2.9.8\build\Microsoft.NetFramework.Analyzers.props'))" />
-    <Error Condition="!Exists('packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.8\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props'))" />
+    <Error Condition="!Exists('packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.3.3.1\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.3.3.1\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props'))" />
+    <Error Condition="!Exists('packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.3.3.1\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.3.3.1\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.CodeQuality.Analyzers.3.3.1\build\Microsoft.CodeQuality.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeQuality.Analyzers.3.3.1\build\Microsoft.CodeQuality.Analyzers.props'))" />
+    <Error Condition="!Exists('packages\Microsoft.CodeQuality.Analyzers.3.3.1\build\Microsoft.CodeQuality.Analyzers.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeQuality.Analyzers.3.3.1\build\Microsoft.CodeQuality.Analyzers.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.NetCore.Analyzers.3.3.1\build\Microsoft.NetCore.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.NetCore.Analyzers.3.3.1\build\Microsoft.NetCore.Analyzers.props'))" />
+    <Error Condition="!Exists('packages\Microsoft.NetCore.Analyzers.3.3.1\build\Microsoft.NetCore.Analyzers.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.NetCore.Analyzers.3.3.1\build\Microsoft.NetCore.Analyzers.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.NetFramework.Analyzers.3.3.1\build\Microsoft.NetFramework.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.NetFramework.Analyzers.3.3.1\build\Microsoft.NetFramework.Analyzers.props'))" />
+    <Error Condition="!Exists('packages\Microsoft.NetFramework.Analyzers.3.3.1\build\Microsoft.NetFramework.Analyzers.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.NetFramework.Analyzers.3.3.1\build\Microsoft.NetFramework.Analyzers.targets'))" />
+    <Error Condition="!Exists('packages\Microsoft.CodeAnalysis.FxCopAnalyzers.3.3.1\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeAnalysis.FxCopAnalyzers.3.3.1\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props'))" />
+    <Error Condition="!Exists('packages\Microsoft.CodeAnalysis.FxCopAnalyzers.3.3.1\build\Microsoft.CodeAnalysis.FxCopAnalyzers.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeAnalysis.FxCopAnalyzers.3.3.1\build\Microsoft.CodeAnalysis.FxCopAnalyzers.targets'))" />
+    <Error Condition="!Exists('packages\SQLite.3.13.0\build\net45\SQLite.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\SQLite.3.13.0\build\net45\SQLite.props'))" />
   </Target>
+  <Import Project="packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.3.3.1\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.targets" Condition="Exists('packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.3.3.1\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.targets')" />
+  <Import Project="packages\Microsoft.CodeQuality.Analyzers.3.3.1\build\Microsoft.CodeQuality.Analyzers.targets" Condition="Exists('packages\Microsoft.CodeQuality.Analyzers.3.3.1\build\Microsoft.CodeQuality.Analyzers.targets')" />
+  <Import Project="packages\Microsoft.NetCore.Analyzers.3.3.1\build\Microsoft.NetCore.Analyzers.targets" Condition="Exists('packages\Microsoft.NetCore.Analyzers.3.3.1\build\Microsoft.NetCore.Analyzers.targets')" />
+  <Import Project="packages\Microsoft.NetFramework.Analyzers.3.3.1\build\Microsoft.NetFramework.Analyzers.targets" Condition="Exists('packages\Microsoft.NetFramework.Analyzers.3.3.1\build\Microsoft.NetFramework.Analyzers.targets')" />
+  <Import Project="packages\Microsoft.CodeAnalysis.FxCopAnalyzers.3.3.1\build\Microsoft.CodeAnalysis.FxCopAnalyzers.targets" Condition="Exists('packages\Microsoft.CodeAnalysis.FxCopAnalyzers.3.3.1\build\Microsoft.CodeAnalysis.FxCopAnalyzers.targets')" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties BuildVersion_UseGlobalSettings="True" BuildVersion_StartDate="2000/1/1" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

@@ -105,7 +105,7 @@ Partial Class frmCostExpenses
         '
         'btnView
         '
-        Me.btnView.Location = New System.Drawing.Point(400, 87)
+        Me.btnView.Location = New System.Drawing.Point(470, 87)
         Me.btnView.Name = "btnView"
         Me.btnView.Size = New System.Drawing.Size(75, 23)
         Me.btnView.TabIndex = 15

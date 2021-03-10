@@ -47,21 +47,21 @@ Public Class frmCostExpenses
     End Sub
 
     Private Sub btnFile_Click(sender As Object, e As EventArgs) Handles btnFile.Click
-        Dim FileDialog As New OpenFileDialog()
+        Dim _FileDialog As New OpenFileDialog With {
+            .InitialDirectory = "E:\AMCORP\Project Costing\Project Reports NEW\",
+            .Filter = "Excel File (*.xlsx)|*.xlsx|All files (*.*)|*.*",
+            .FilterIndex = 1,
+            .RestoreDirectory = True
+        }
 
-        FileDialog.InitialDirectory = "E:\AMCORP\Project Costing\Project Reports NEW\"
-        FileDialog.Filter = "Excel File (*.xlsx)|*.xlsx|All files (*.*)|*.*"
-        FileDialog.FilterIndex = 1
-        FileDialog.RestoreDirectory = True
+        Dim result As DialogResult = _FileDialog.ShowDialog()
 
-        Dim result As DialogResult = FileDialog.ShowDialog()
-
-        txtFile.Text = FileDialog.FileName
+        txtFile.Text = _FileDialog.FileName
 
         MyRefresh()
     End Sub
 
-    <Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification:="<Pending>")>
+
     Private Sub btnProceed_Click(sender As Object, e As EventArgs) Handles btnProceed.Click
         If Not File.Exists(ExcelFile) Then
             MsgBox("Excel file is NOT Exist")
@@ -131,13 +131,22 @@ Public Class frmCostExpenses
 
             If _PostingType = "Purchase Invoice" Then
 
-                _SQLCommandInvoice.Parameters("@TrandtlID").Value = _TranDtlID
-                _SQLCommandInvoice.Parameters("@Heading").Value = _Cost_Head
-                _SQLCommandInvoice.Parameters("@ExpenseID").Value = _Cost_COA
+                If (_TranDtlID > 0) Then
+                    _SQLCommandInvoice.Parameters("@TrandtlID").Value = _TranDtlID
+                    _SQLCommandInvoice.Parameters("@Heading").Value = _Cost_Head
+                    _SQLCommandInvoice.Parameters("@ExpenseID").Value = _Cost_COA
 
-                _Result = _SQLCommandInvoice.ExecuteNonQuery()
+                    _Result = _SQLCommandInvoice.ExecuteNonQuery()
 
-                MyTitle = String.Concat("Transaction ID = ", _TranDtlID, " | Heading =", _Cost_Head, " | Expense ID =", _Cost_COA, " | SQL Updated ", _Result, " Record(s) ")
+                    If (_Result > 1) Then
+                        MsgBox("SQL Query hit more than 1 record" + _Result.ToString)
+                    End If
+
+                    MyTitle = String.Concat("Transaction ID = ", _TranDtlID, " | Heading =", _Cost_Head, " | Expense ID =", _Cost_COA, " | SQL Updated ", _Result, " Record(s) ")
+                Else
+                    MsgBox("Transaction Id is Zero")
+                    Stop
+                End If
 
             End If
 
