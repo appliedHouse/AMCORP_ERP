@@ -9,8 +9,11 @@ Imports System.Collections
 Public Class frmMigrations_Amcorp
 
     Private ReadOnly FilePath As String = "E:\AMCORP\Migration\"
-    Private ReadOnly FileName As String = "Migrations_Amcorp.xlsx"
+    Private ReadOnly FileName As String = "Migrations_AGJV_PVT.xlsx"
     Private ReadOnly ExcelFile As String = String.Concat(FilePath, FileName)
+
+
+
 
     Private ReadOnly TableNameCOAcat As String = "[dbo].[tblAccountCategory]"               ' Chart of Accounts Category
     Private ReadOnly TableNameCOA As String = "[dbo].[tblChartofAccount]"                   ' Chart of Accounts
@@ -56,8 +59,9 @@ Public Class frmMigrations_Amcorp
     Private SourceExpenses As DataTable
 
     Private LastLine As Integer
+    Private MyUnits As Array                                 ' Add Branch in company chart of Accounts
 
-    Private Property SourceCompanyID As Integer = 1          ' Select Amcor-Orient JV Company
+    Private Property SourceCompanyID As Integer = 7          ' Select Amcor-Orient JV Company
     Private Property MyDataTable As DataTable
     Private Property MyPrimaryKeyName As String
     Private Property MyPrimaryKeyValue As Integer
@@ -76,6 +80,9 @@ Public Class frmMigrations_Amcorp
         gridItemCoat.DataSource = SourceItemCat
 
         RecordsProcess.Visible = False
+
+        lblMessages.Text = ExcelFile
+
 
     End Sub
 
@@ -152,6 +159,11 @@ Public Class frmMigrations_Amcorp
         RecordsProcess.Value = 0
 
         For Each _Row As DataRow In SourceCOA.Rows
+
+            If IsDBNull(_Row("ID")) Then
+                Continue For
+            End If
+
             MyPrimaryKeyName = "ChartOfAccountID"
             MyPrimaryKeyValue = _Row("ID")
 
@@ -202,6 +214,7 @@ Public Class frmMigrations_Amcorp
             RecordsProcess.Value += 1
             MyMessages.Add(lblMessages.Text)
         Next
+
         lblMessages.Text = "COA Process Completed."
         RecordsProcess.Visible = False
 
@@ -769,5 +782,64 @@ Public Class frmMigrations_Amcorp
     End Sub
 
 #End Region
+
+#Region "COA Company Unit"
+
+    Private Sub COA_Units(_Array As Array)
+
+        Dim _DataView As DataView = Table_COAUnits.DefaultView
+        Dim _Command As New SqlCommand("", Connection_Amcorp)
+        _Command.Parameters.AddWithValue("@COA", 0)
+        _Command.Parameters.AddWithValue("@Unit", 0)
+        _Command.Parameters.AddWithValue("@Company", SourceCompanyID)
+
+
+        For Each _Row As DataRow In Table_COA.Rows
+
+            If _Row("CompanyID") <> SourceCompanyID Then
+                Continue For
+            End If
+
+            For Each _Unit As Integer In _Array
+
+                _DataView.RowFilter = "ChartofAccountID=" & _Row("ChartofAccountID").ToString & " AND CompanyUnitID=" & _Unit.ToString
+
+                Dim _NewRow As DataRow
+
+                If _DataView.Count = 0 Then
+
+                    _Command.CommandText = "INSERT INTO [Bizztrax_Amcorp].[dbo].[tblChartAccount_CompanyUnit] VALUES (@COA, @Unit, @Company)"
+                    _Command.Parameters("@COA").Value = _Row("ChartofAccountID")
+                    _Command.Parameters("@Unit").Value = _Unit
+                    _Command.Parameters("@Company").Value = SourceCompanyID
+                    _Command.ExecuteNonQuery()
+
+                    lblMessages.Text = "Chart of Account ID " & _Row("ChartofAccountID") & " Unit " & _Unit
+                End If
+            Next
+        Next
+
+
+    End Sub
+
+    Private Sub btnBranches_Click(sender As Object, e As EventArgs) Handles btnBranches.Click
+
+        If SourceCompanyID = 7 Then
+            MyUnits = {27, 28}
+            COA_Units(MyUnits)
+        End If
+
+
+
+    End Sub
+
+
+
+
+
+#End Region
+
+
+
 
 End Class

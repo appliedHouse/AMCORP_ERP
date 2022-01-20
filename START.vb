@@ -139,6 +139,11 @@ Public Class START
         ShowForm.Show()
     End Sub
 
+    Private Sub mnuAGJV_PVT_Click(sender As Object, e As EventArgs) Handles mnuAGJV_PVT.Click
+        Dim ShowForm As New frmMigrations_Amcorp
+        ShowForm.Show()
+    End Sub
+
 #Enable Warning CA2000 ' Dispose objects before losing scope
 
 End Class

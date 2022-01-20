@@ -16,7 +16,7 @@
     <AssemblyName>AMCORP_ERP</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Empty</MyType>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -34,8 +34,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>2021.06.28.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -265,11 +265,25 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="APPLIED_TABLE_STD">
-      <HintPath>..\..\Applied_GIT\APPLIED_TABLE\APPLIED_TABLE_STD\bin\Release\netstandard2.0\APPLIED_TABLE_STD.dll</HintPath>
+    <Reference Include="APPLIED_TABLE_STD, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Extra\APPLIED_TABLE_STD.dll</HintPath>
     </Reference>
+    <Reference Include="Connection_Class" />
     <Reference Include="Connection_Class">
+      <HintPath>..\..\Connection Class\Connection_Class_DLL\obj\Release\Connection_Class.dll</HintPath>
+    </Reference>
+    <Reference Include="Connection_Class" />
+    <Reference Include="Connection_Class">
+      <HintPath>..\..\Connection Class\Connection_Class_DLL\obj\Release\Connection_Class.dll</HintPath>
+    </Reference>
+    <Reference Include="Connection_Class, Version=2021.3.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Connection Class\Connection_Class_DLL\bin\Release\Connection_Class.dll</HintPath>
+    </Reference>
+    <Reference Include="ERROR_CLASS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Extra\ERROR_CLASS.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -290,9 +304,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.4.0.0.0.Fakes">
-      <HintPath>FakesAssemblies\System.Data.4.0.0.0.Fakes.dll</HintPath>
-    </Reference>
     <Reference Include="System.Data.SqlClient, Version=4.6.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\System.Data.SqlClient.4.8.2\lib\net461\System.Data.SqlClient.dll</HintPath>
     </Reference>
@@ -395,6 +406,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CS\Applied_Table.cs" />
+    <Content Include="Extra\APPLIED_TABLE_STD.dll" />
+    <Content Include="Extra\ERROR_CLASS.dll" />
     <Content Include="Rocket.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -443,7 +456,7 @@
   <Import Project="packages\Microsoft.CodeAnalysis.FxCopAnalyzers.3.3.1\build\Microsoft.CodeAnalysis.FxCopAnalyzers.targets" Condition="Exists('packages\Microsoft.CodeAnalysis.FxCopAnalyzers.3.3.1\build\Microsoft.CodeAnalysis.FxCopAnalyzers.targets')" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="True" BuildVersion_StartDate="2000/1/1" />
+      <UserProperties BuildVersion_StartDate="2000/1/1" BuildVersion_UseGlobalSettings="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

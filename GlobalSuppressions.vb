@@ -5,4 +5,4 @@
 
 Imports System.Diagnostics.CodeAnalysis
 
-<Assembly: Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification:="<Pending>")>
+<Assembly: SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification:="<Pending>")>

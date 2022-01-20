@@ -2,7 +2,7 @@
 Imports System.Data.SqlClient
 Imports System.Text
 Imports Connection_Class
-Imports APPLIED_TABLE_STD
+
 
 
 
@@ -24,6 +24,8 @@ Public Class frmDuplicateUser
     Dim MyDataTable As DataTable
     Dim MyConnection As SqlConnection = Connection_Amcorp()
     Dim _Command As SqlCommand = New SqlCommand("", MyConnection)
+
+    'Dim AppliedTable As APPLIED_TABLE.Applied_Table
 
 
     Private Sub frmDuplicateUser_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -106,7 +108,7 @@ Public Class frmDuplicateUser
         Dim TargetComapny As Integer = cboxDuplicateUser.SelectedValue
         Dim TargetUser As Integer = cBoxUser.SelectedValue
         Dim ExistingFilter As String = View_User.RowFilter
-        Dim TableClass As APPLIED_TABLE_STD.Applied_Table_STD = New APPLIED_TABLE_STD.Applied_Table_STD(MyDataTable, Connection_Amcorp)
+        Dim TableClass As APPLIED_TABLE.Applied_Table = New APPLIED_TABLE.Applied_Table(MyDataTable, Connection_Amcorp)
         Dim MyText As String() = TableClass.SQLInsert(TargetUser)
         Dim InsertCommand As SqlCommand = New SqlCommand(MyText(3), Connection_Amcorp)
         Dim MaxID As Integer = MyDataTable.Compute(String.Concat("Max(UserID)"), "")

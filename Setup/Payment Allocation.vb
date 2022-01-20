@@ -313,6 +313,8 @@ Public Class frmPayment_Allocation
             End If
         End If
 
+        Return 0
+
     End Function
 
     Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btnNew.Click

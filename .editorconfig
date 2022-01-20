@@ -8,3 +8,6 @@ dotnet_diagnostic.CA2100.severity = silent
 
 # CA1304: Specify CultureInfo
 dotnet_diagnostic.CA1304.severity = none
+
+# Default severity for all analyzer diagnostics
+dotnet_analyzer_diagnostic.severity = silent

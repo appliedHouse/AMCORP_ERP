@@ -57,6 +57,7 @@ Partial Class frmMigrations_Amcorp
         Me.btnMigrate_Expense = New System.Windows.Forms.Button()
         Me.btnData_Expense = New System.Windows.Forms.Button()
         Me.gridExpenses = New System.Windows.Forms.DataGridView()
+        Me.btnBranches = New System.Windows.Forms.Button()
         CType(Me.gridUOM, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabUOM.SuspendLayout()
         CType(Me.gridCity, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -206,7 +207,7 @@ Partial Class frmMigrations_Amcorp
         '
         Me.lblMessages.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblMessages.AutoSize = True
-        Me.lblMessages.Location = New System.Drawing.Point(20, 419)
+        Me.lblMessages.Location = New System.Drawing.Point(18, 421)
         Me.lblMessages.Name = "lblMessages"
         Me.lblMessages.Size = New System.Drawing.Size(55, 13)
         Me.lblMessages.TabIndex = 5
@@ -313,6 +314,7 @@ Partial Class frmMigrations_Amcorp
         '
         'TabCOA
         '
+        Me.TabCOA.Controls.Add(Me.btnBranches)
         Me.TabCOA.Controls.Add(Me.btnData_COA)
         Me.TabCOA.Controls.Add(Me.btnMigrationCOA)
         Me.TabCOA.Controls.Add(Me.gridCOA)
@@ -436,6 +438,15 @@ Partial Class frmMigrations_Amcorp
         Me.gridExpenses.Size = New System.Drawing.Size(766, 330)
         Me.gridExpenses.TabIndex = 0
         '
+        'btnBranches
+        '
+        Me.btnBranches.Location = New System.Drawing.Point(7, 345)
+        Me.btnBranches.Name = "btnBranches"
+        Me.btnBranches.Size = New System.Drawing.Size(111, 23)
+        Me.btnBranches.TabIndex = 4
+        Me.btnBranches.Text = "Add Branches"
+        Me.btnBranches.UseVisualStyleBackColor = True
+        '
         'frmMigrations_Amcorp
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -503,4 +514,5 @@ Partial Class frmMigrations_Amcorp
     Friend WithEvents btnMigrate_Expense As Windows.Forms.Button
     Friend WithEvents btnData_Expense As Windows.Forms.Button
     Friend WithEvents gridExpenses As Windows.Forms.DataGridView
+    Friend WithEvents btnBranches As Windows.Forms.Button
 End Class

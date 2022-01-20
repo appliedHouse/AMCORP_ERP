@@ -67,6 +67,7 @@ Partial Class START
         Me.mnuMigration_AO = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuMigrationAmcorp = New System.Windows.Forms.ToolStripMenuItem()
         Me.lblMessage = New System.Windows.Forms.Label()
+        Me.mnuAGJV_PVT = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -321,7 +322,7 @@ Partial Class START
         '
         'mnuOrentJV
         '
-        Me.mnuOrentJV.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuMigration_AO, Me.mnuMigrationAmcorp})
+        Me.mnuOrentJV.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuMigration_AO, Me.mnuMigrationAmcorp, Me.mnuAGJV_PVT})
         Me.mnuOrentJV.Name = "mnuOrentJV"
         Me.mnuOrentJV.Size = New System.Drawing.Size(76, 23)
         Me.mnuOrentJV.Text = "Migrations"
@@ -346,6 +347,12 @@ Partial Class START
         Me.lblMessage.Size = New System.Drawing.Size(72, 13)
         Me.lblMessage.TabIndex = 1
         Me.lblMessage.Text = "03-June-2020"
+        '
+        'mnuAGJV_PVT
+        '
+        Me.mnuAGJV_PVT.Name = "mnuAGJV_PVT"
+        Me.mnuAGJV_PVT.Size = New System.Drawing.Size(180, 22)
+        Me.mnuAGJV_PVT.Text = "AGJV PVT LTD."
         '
         'START
         '
@@ -409,4 +416,5 @@ Partial Class START
     Friend WithEvents mnuProjectReport As Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuCostReport As Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuUpdateExpenses As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuAGJV_PVT As Windows.Forms.ToolStripMenuItem
 End Class
