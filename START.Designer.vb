@@ -34,7 +34,6 @@ Partial Class START
         Me.mnuProjectReport = New System.Windows.Forms.ToolStripMenuItem()
         Me.EBuyerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSupplierLedger = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mnuJoinSupplierLedger = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSupplierOutstanding = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuSupplierRecord = New System.Windows.Forms.ToolStripMenuItem()
@@ -49,7 +48,6 @@ Partial Class START
         Me.mnuItems_COA_Trans = New System.Windows.Forms.ToolStripMenuItem()
         Me.EFinanceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GeneralLedgerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GeneralLedgerProjectToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TrialBalanceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BlanaceSheetToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ProfitLossAccountToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -66,8 +64,8 @@ Partial Class START
         Me.mnuOrentJV = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuMigration_AO = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuMigrationAmcorp = New System.Windows.Forms.ToolStripMenuItem()
-        Me.lblMessage = New System.Windows.Forms.Label()
         Me.mnuAGJV_PVT = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -137,7 +135,7 @@ Partial Class START
         '
         'EBuyerToolStripMenuItem
         '
-        Me.EBuyerToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSupplierLedger, Me.mnuJoinSupplierLedger, Me.mnuSupplierOutstanding, Me.ToolStripSeparator1, Me.mnuSupplierRecord, Me.ToolStripSeparator3, Me.mnuItemJV, Me.mnuCopySupplierJV, Me.ToolStripSeparator4, Me.mnuSupplierInvAdj, Me.mnuSupplierAging, Me.ToolStripSeparator5, Me.mnuItemList, Me.mnuItems_COA_Trans})
+        Me.EBuyerToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSupplierRecord, Me.ToolStripSeparator1, Me.mnuSupplierLedger, Me.mnuSupplierOutstanding, Me.ToolStripSeparator3, Me.mnuItemJV, Me.mnuCopySupplierJV, Me.ToolStripSeparator4, Me.mnuSupplierInvAdj, Me.mnuSupplierAging, Me.ToolStripSeparator5, Me.mnuItemList, Me.mnuItems_COA_Trans})
         Me.EBuyerToolStripMenuItem.Name = "EBuyerToolStripMenuItem"
         Me.EBuyerToolStripMenuItem.Size = New System.Drawing.Size(60, 23)
         Me.EBuyerToolStripMenuItem.Text = "e-Buyer"
@@ -147,12 +145,6 @@ Partial Class START
         Me.mnuSupplierLedger.Name = "mnuSupplierLedger"
         Me.mnuSupplierLedger.Size = New System.Drawing.Size(204, 22)
         Me.mnuSupplierLedger.Text = "Supplier Ledger"
-        '
-        'mnuJoinSupplierLedger
-        '
-        Me.mnuJoinSupplierLedger.Name = "mnuJoinSupplierLedger"
-        Me.mnuJoinSupplierLedger.Size = New System.Drawing.Size(204, 22)
-        Me.mnuJoinSupplierLedger.Text = "Supplier Ledger (Join)"
         '
         'mnuSupplierOutstanding
         '
@@ -224,7 +216,7 @@ Partial Class START
         '
         'EFinanceToolStripMenuItem
         '
-        Me.EFinanceToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GeneralLedgerToolStripMenuItem, Me.GeneralLedgerProjectToolStripMenuItem, Me.TrialBalanceToolStripMenuItem, Me.BlanaceSheetToolStripMenuItem, Me.ProfitLossAccountToolStripMenuItem, Me.ToolStripSeparator2, Me.ChartOfAccountsToolStripMenuItem, Me.CategoryOfAccountsToolStripMenuItem, Me.mnuTest})
+        Me.EFinanceToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GeneralLedgerToolStripMenuItem, Me.TrialBalanceToolStripMenuItem, Me.BlanaceSheetToolStripMenuItem, Me.ProfitLossAccountToolStripMenuItem, Me.ToolStripSeparator2, Me.ChartOfAccountsToolStripMenuItem, Me.CategoryOfAccountsToolStripMenuItem, Me.mnuTest})
         Me.EFinanceToolStripMenuItem.Name = "EFinanceToolStripMenuItem"
         Me.EFinanceToolStripMenuItem.Size = New System.Drawing.Size(71, 23)
         Me.EFinanceToolStripMenuItem.Text = "E-Finance"
@@ -232,54 +224,48 @@ Partial Class START
         'GeneralLedgerToolStripMenuItem
         '
         Me.GeneralLedgerToolStripMenuItem.Name = "GeneralLedgerToolStripMenuItem"
-        Me.GeneralLedgerToolStripMenuItem.Size = New System.Drawing.Size(201, 22)
+        Me.GeneralLedgerToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
         Me.GeneralLedgerToolStripMenuItem.Text = "General Ledger"
-        '
-        'GeneralLedgerProjectToolStripMenuItem
-        '
-        Me.GeneralLedgerProjectToolStripMenuItem.Name = "GeneralLedgerProjectToolStripMenuItem"
-        Me.GeneralLedgerProjectToolStripMenuItem.Size = New System.Drawing.Size(201, 22)
-        Me.GeneralLedgerProjectToolStripMenuItem.Text = "General Ledger - Project"
         '
         'TrialBalanceToolStripMenuItem
         '
         Me.TrialBalanceToolStripMenuItem.Name = "TrialBalanceToolStripMenuItem"
-        Me.TrialBalanceToolStripMenuItem.Size = New System.Drawing.Size(201, 22)
+        Me.TrialBalanceToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
         Me.TrialBalanceToolStripMenuItem.Text = "Trial Balance"
         '
         'BlanaceSheetToolStripMenuItem
         '
         Me.BlanaceSheetToolStripMenuItem.Name = "BlanaceSheetToolStripMenuItem"
-        Me.BlanaceSheetToolStripMenuItem.Size = New System.Drawing.Size(201, 22)
+        Me.BlanaceSheetToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
         Me.BlanaceSheetToolStripMenuItem.Text = "Blanace Sheet"
         '
         'ProfitLossAccountToolStripMenuItem
         '
         Me.ProfitLossAccountToolStripMenuItem.Name = "ProfitLossAccountToolStripMenuItem"
-        Me.ProfitLossAccountToolStripMenuItem.Size = New System.Drawing.Size(201, 22)
+        Me.ProfitLossAccountToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
         Me.ProfitLossAccountToolStripMenuItem.Text = "Profit & Loss Account"
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(198, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(186, 6)
         '
         'ChartOfAccountsToolStripMenuItem
         '
         Me.ChartOfAccountsToolStripMenuItem.Name = "ChartOfAccountsToolStripMenuItem"
-        Me.ChartOfAccountsToolStripMenuItem.Size = New System.Drawing.Size(201, 22)
+        Me.ChartOfAccountsToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
         Me.ChartOfAccountsToolStripMenuItem.Text = "Chart of Accounts"
         '
         'CategoryOfAccountsToolStripMenuItem
         '
         Me.CategoryOfAccountsToolStripMenuItem.Name = "CategoryOfAccountsToolStripMenuItem"
-        Me.CategoryOfAccountsToolStripMenuItem.Size = New System.Drawing.Size(201, 22)
+        Me.CategoryOfAccountsToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
         Me.CategoryOfAccountsToolStripMenuItem.Text = "Category of Accounts"
         '
         'mnuTest
         '
         Me.mnuTest.Name = "mnuTest"
-        Me.mnuTest.Size = New System.Drawing.Size(201, 22)
+        Me.mnuTest.Size = New System.Drawing.Size(189, 22)
         Me.mnuTest.Text = "Test"
         '
         'PaymentsToolStripMenuItem
@@ -292,7 +278,7 @@ Partial Class START
         'mnuAllocation
         '
         Me.mnuAllocation.Name = "mnuAllocation"
-        Me.mnuAllocation.Size = New System.Drawing.Size(178, 22)
+        Me.mnuAllocation.Size = New System.Drawing.Size(180, 22)
         Me.mnuAllocation.Text = "Payment Allocation"
         '
         'mnuCostReport
@@ -305,7 +291,7 @@ Partial Class START
         'mnuUpdateExpenses
         '
         Me.mnuUpdateExpenses.Name = "mnuUpdateExpenses"
-        Me.mnuUpdateExpenses.Size = New System.Drawing.Size(163, 22)
+        Me.mnuUpdateExpenses.Size = New System.Drawing.Size(180, 22)
         Me.mnuUpdateExpenses.Text = "Update Expenses"
         '
         'ExitToolStripMenuItem
@@ -330,39 +316,40 @@ Partial Class START
         'mnuMigration_AO
         '
         Me.mnuMigration_AO.Name = "mnuMigration_AO"
-        Me.mnuMigration_AO.Size = New System.Drawing.Size(180, 22)
+        Me.mnuMigration_AO.Size = New System.Drawing.Size(155, 22)
         Me.mnuMigration_AO.Text = "Amcorp-Orient"
         '
         'mnuMigrationAmcorp
         '
         Me.mnuMigrationAmcorp.Name = "mnuMigrationAmcorp"
-        Me.mnuMigrationAmcorp.Size = New System.Drawing.Size(180, 22)
+        Me.mnuMigrationAmcorp.Size = New System.Drawing.Size(155, 22)
         Me.mnuMigrationAmcorp.Text = "AMCORP"
-        '
-        'lblMessage
-        '
-        Me.lblMessage.AutoSize = True
-        Me.lblMessage.Location = New System.Drawing.Point(12, 428)
-        Me.lblMessage.Name = "lblMessage"
-        Me.lblMessage.Size = New System.Drawing.Size(72, 13)
-        Me.lblMessage.TabIndex = 1
-        Me.lblMessage.Text = "03-June-2020"
         '
         'mnuAGJV_PVT
         '
         Me.mnuAGJV_PVT.Name = "mnuAGJV_PVT"
-        Me.mnuAGJV_PVT.Size = New System.Drawing.Size(180, 22)
+        Me.mnuAGJV_PVT.Size = New System.Drawing.Size(155, 22)
         Me.mnuAGJV_PVT.Text = "AGJV PVT LTD."
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(13, 425)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(42, 13)
+        Me.Label1.TabIndex = 1
+        Me.Label1.Text = "Version"
         '
         'START
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.lblMessage)
+        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "START"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "START"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
@@ -380,7 +367,6 @@ Partial Class START
     Friend WithEvents mnuItemList As Windows.Forms.ToolStripMenuItem
     Friend WithEvents EFinanceToolStripMenuItem As Windows.Forms.ToolStripMenuItem
     Friend WithEvents GeneralLedgerToolStripMenuItem As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents GeneralLedgerProjectToolStripMenuItem As Windows.Forms.ToolStripMenuItem
     Friend WithEvents TrialBalanceToolStripMenuItem As Windows.Forms.ToolStripMenuItem
     Friend WithEvents BlanaceSheetToolStripMenuItem As Windows.Forms.ToolStripMenuItem
     Friend WithEvents ProfitLossAccountToolStripMenuItem As Windows.Forms.ToolStripMenuItem
@@ -403,10 +389,8 @@ Partial Class START
     Friend WithEvents mnuCopySupplierJV As Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator4 As Windows.Forms.ToolStripSeparator
     Friend WithEvents mnuSupplierAging As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mnuJoinSupplierLedger As Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator5 As Windows.Forms.ToolStripSeparator
     Friend WithEvents mnuItems_COA_Trans As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents lblMessage As Windows.Forms.Label
     Friend WithEvents mnuDeplicateUser As Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuOrentJV As Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuMigration_AO As Windows.Forms.ToolStripMenuItem
@@ -417,4 +401,5 @@ Partial Class START
     Friend WithEvents mnuCostReport As Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuUpdateExpenses As Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuAGJV_PVT As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Label1 As Windows.Forms.Label
 End Class

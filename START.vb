@@ -1,12 +1,13 @@
 ﻿Imports System.Data
+Imports System.Reflection
 
 Public Class START
 
 #Disable Warning CA2000 ' Dispose objects before losing scope
 
     Private Sub START_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim _Result As String = Connection_Class.CreateSetup.InstanceStart(My.Settings.SetupDBInstance)
-        lblMessage.Text = _Result
+        Dim _Result As String = Assembly.GetExecutingAssembly().GetName().Version.ToString
+        Label1.Text = _Result
     End Sub
 
     Private Sub mnuCreateSetupDB_Click(sender As Object, e As EventArgs) Handles mnuCreateSetupDB.Click
@@ -99,7 +100,7 @@ Public Class START
         ShowForm.Show()
     End Sub
 
-    Private Sub MnuJoinSupplierLedger_Click(sender As Object, e As EventArgs) Handles mnuJoinSupplierLedger.Click
+    Private Sub MnuJoinSupplierLedger_Click(sender As Object, e As EventArgs)
         Dim ShowForm As New frmJoinLedgers
         ShowForm.Show()
     End Sub

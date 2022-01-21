@@ -2,6 +2,7 @@
 Imports System.IO
 Imports System.Windows.Forms
 Imports Microsoft.Office.Interop.Excel
+Imports Microsoft.ReportingServices.Rendering.ExcelRenderer
 Imports Excel = Microsoft.Office.Interop.Excel
 
 
@@ -144,7 +145,7 @@ Public Class frmCostExpenses
 
                     MyTitle = String.Concat("Transaction ID = ", _TranDtlID, " | Heading =", _Cost_Head, " | Expense ID =", _Cost_COA, " | SQL Updated ", _Result, " Record(s) ")
                 Else
-                    MsgBox("Transaction Id is Zero")
+                    MsgBox("Transaction ID is Zero")
                     Stop
                 End If
 
@@ -189,8 +190,8 @@ Public Class frmCostExpenses
 
         If Close_at_end Then
             proBar.Visible = False
-            xlWorkBooks.Close()
-            xlApp.Quit()
+            '    'xlWorkBooks.Close()
+            '    'xlApp.Quit()
             xlWorkSheet = Nothing
             xlWorkBooks = Nothing
             xlApp = Nothing
