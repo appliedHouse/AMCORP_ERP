@@ -33,10 +33,11 @@ Partial Class START
         Me.mnuDeplicateUser = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuProjectReport = New System.Windows.Forms.ToolStripMenuItem()
         Me.EBuyerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuSupplierRecord = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuSupplierLedger = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuSupplierOutstanding = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.mnuSupplierRecord = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuPurchaseInvoice = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.mnuItemJV = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuCopySupplierJV = New System.Windows.Forms.ToolStripMenuItem()
@@ -66,6 +67,7 @@ Partial Class START
         Me.mnuMigrationAmcorp = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuAGJV_PVT = New System.Windows.Forms.ToolStripMenuItem()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.mnuVoucherEdit = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -135,10 +137,21 @@ Partial Class START
         '
         'EBuyerToolStripMenuItem
         '
-        Me.EBuyerToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSupplierRecord, Me.ToolStripSeparator1, Me.mnuSupplierLedger, Me.mnuSupplierOutstanding, Me.ToolStripSeparator3, Me.mnuItemJV, Me.mnuCopySupplierJV, Me.ToolStripSeparator4, Me.mnuSupplierInvAdj, Me.mnuSupplierAging, Me.ToolStripSeparator5, Me.mnuItemList, Me.mnuItems_COA_Trans})
+        Me.EBuyerToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuSupplierRecord, Me.ToolStripSeparator1, Me.mnuSupplierLedger, Me.mnuSupplierOutstanding, Me.mnuPurchaseInvoice, Me.ToolStripSeparator3, Me.mnuItemJV, Me.mnuCopySupplierJV, Me.ToolStripSeparator4, Me.mnuSupplierInvAdj, Me.mnuSupplierAging, Me.ToolStripSeparator5, Me.mnuItemList, Me.mnuItems_COA_Trans})
         Me.EBuyerToolStripMenuItem.Name = "EBuyerToolStripMenuItem"
         Me.EBuyerToolStripMenuItem.Size = New System.Drawing.Size(60, 23)
         Me.EBuyerToolStripMenuItem.Text = "e-Buyer"
+        '
+        'mnuSupplierRecord
+        '
+        Me.mnuSupplierRecord.Name = "mnuSupplierRecord"
+        Me.mnuSupplierRecord.Size = New System.Drawing.Size(204, 22)
+        Me.mnuSupplierRecord.Text = "Supplier Record"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(201, 6)
         '
         'mnuSupplierLedger
         '
@@ -152,16 +165,11 @@ Partial Class START
         Me.mnuSupplierOutstanding.Size = New System.Drawing.Size(204, 22)
         Me.mnuSupplierOutstanding.Text = "Suppliers Outstanding"
         '
-        'ToolStripSeparator1
+        'mnuPurchaseInvoice
         '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(201, 6)
-        '
-        'mnuSupplierRecord
-        '
-        Me.mnuSupplierRecord.Name = "mnuSupplierRecord"
-        Me.mnuSupplierRecord.Size = New System.Drawing.Size(204, 22)
-        Me.mnuSupplierRecord.Text = "Supplier Record"
+        Me.mnuPurchaseInvoice.Name = "mnuPurchaseInvoice"
+        Me.mnuPurchaseInvoice.Size = New System.Drawing.Size(204, 22)
+        Me.mnuPurchaseInvoice.Text = "Purchase Invoice"
         '
         'ToolStripSeparator3
         '
@@ -216,7 +224,7 @@ Partial Class START
         '
         'EFinanceToolStripMenuItem
         '
-        Me.EFinanceToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GeneralLedgerToolStripMenuItem, Me.TrialBalanceToolStripMenuItem, Me.BlanaceSheetToolStripMenuItem, Me.ProfitLossAccountToolStripMenuItem, Me.ToolStripSeparator2, Me.ChartOfAccountsToolStripMenuItem, Me.CategoryOfAccountsToolStripMenuItem, Me.mnuTest})
+        Me.EFinanceToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.GeneralLedgerToolStripMenuItem, Me.mnuVoucherEdit, Me.TrialBalanceToolStripMenuItem, Me.BlanaceSheetToolStripMenuItem, Me.ProfitLossAccountToolStripMenuItem, Me.ToolStripSeparator2, Me.ChartOfAccountsToolStripMenuItem, Me.CategoryOfAccountsToolStripMenuItem, Me.mnuTest})
         Me.EFinanceToolStripMenuItem.Name = "EFinanceToolStripMenuItem"
         Me.EFinanceToolStripMenuItem.Size = New System.Drawing.Size(71, 23)
         Me.EFinanceToolStripMenuItem.Text = "E-Finance"
@@ -278,7 +286,7 @@ Partial Class START
         'mnuAllocation
         '
         Me.mnuAllocation.Name = "mnuAllocation"
-        Me.mnuAllocation.Size = New System.Drawing.Size(180, 22)
+        Me.mnuAllocation.Size = New System.Drawing.Size(178, 22)
         Me.mnuAllocation.Text = "Payment Allocation"
         '
         'mnuCostReport
@@ -291,7 +299,7 @@ Partial Class START
         'mnuUpdateExpenses
         '
         Me.mnuUpdateExpenses.Name = "mnuUpdateExpenses"
-        Me.mnuUpdateExpenses.Size = New System.Drawing.Size(180, 22)
+        Me.mnuUpdateExpenses.Size = New System.Drawing.Size(163, 22)
         Me.mnuUpdateExpenses.Text = "Update Expenses"
         '
         'ExitToolStripMenuItem
@@ -339,6 +347,12 @@ Partial Class START
         Me.Label1.Size = New System.Drawing.Size(42, 13)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Version"
+        '
+        'mnuVoucherEdit
+        '
+        Me.mnuVoucherEdit.Name = "mnuVoucherEdit"
+        Me.mnuVoucherEdit.Size = New System.Drawing.Size(189, 22)
+        Me.mnuVoucherEdit.Text = "Voucher Edit"
         '
         'START
         '
@@ -402,4 +416,6 @@ Partial Class START
     Friend WithEvents mnuUpdateExpenses As Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuAGJV_PVT As Windows.Forms.ToolStripMenuItem
     Friend WithEvents Label1 As Windows.Forms.Label
+    Friend WithEvents mnuPurchaseInvoice As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuVoucherEdit As Windows.Forms.ToolStripMenuItem
 End Class

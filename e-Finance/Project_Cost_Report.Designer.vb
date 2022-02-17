@@ -31,12 +31,14 @@ Partial Class frmCostExpenses
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.btnView = New System.Windows.Forms.Button()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblMessage
         '
         Me.lblMessage.AutoSize = True
-        Me.lblMessage.Location = New System.Drawing.Point(25, 106)
+        Me.lblMessage.Location = New System.Drawing.Point(6, 16)
         Me.lblMessage.Name = "lblMessage"
         Me.lblMessage.Size = New System.Drawing.Size(39, 13)
         Me.lblMessage.TabIndex = 13
@@ -44,14 +46,14 @@ Partial Class frmCostExpenses
         '
         'proBar
         '
-        Me.proBar.Location = New System.Drawing.Point(25, 125)
+        Me.proBar.Location = New System.Drawing.Point(25, 156)
         Me.proBar.Name = "proBar"
         Me.proBar.Size = New System.Drawing.Size(685, 23)
         Me.proBar.TabIndex = 12
         '
         'btnExit
         '
-        Me.btnExit.Location = New System.Drawing.Point(635, 87)
+        Me.btnExit.Location = New System.Drawing.Point(635, 83)
         Me.btnExit.Name = "btnExit"
         Me.btnExit.Size = New System.Drawing.Size(75, 23)
         Me.btnExit.TabIndex = 11
@@ -60,11 +62,11 @@ Partial Class frmCostExpenses
         '
         'btnProceed
         '
-        Me.btnProceed.Location = New System.Drawing.Point(554, 87)
+        Me.btnProceed.Location = New System.Drawing.Point(554, 83)
         Me.btnProceed.Name = "btnProceed"
         Me.btnProceed.Size = New System.Drawing.Size(75, 23)
         Me.btnProceed.TabIndex = 10
-        Me.btnProceed.Text = "Proceed"
+        Me.btnProceed.Text = "PROCEED"
         Me.btnProceed.UseVisualStyleBackColor = True
         '
         'btnFile
@@ -97,7 +99,7 @@ Partial Class frmCostExpenses
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label2.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.Label2.Location = New System.Drawing.Point(187, 9)
+        Me.Label2.Location = New System.Drawing.Point(187, 12)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(358, 24)
         Me.Label2.TabIndex = 14
@@ -105,21 +107,31 @@ Partial Class frmCostExpenses
         '
         'btnView
         '
-        Me.btnView.Location = New System.Drawing.Point(470, 87)
+        Me.btnView.Location = New System.Drawing.Point(470, 83)
         Me.btnView.Name = "btnView"
         Me.btnView.Size = New System.Drawing.Size(75, 23)
         Me.btnView.TabIndex = 15
-        Me.btnView.Text = "View"
+        Me.btnView.Text = "VIEW"
         Me.btnView.UseVisualStyleBackColor = True
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.lblMessage)
+        Me.GroupBox1.Location = New System.Drawing.Point(25, 112)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(685, 38)
+        Me.GroupBox1.TabIndex = 16
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "MESSAGE"
         '
         'frmCostExpenses
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(732, 170)
+        Me.ClientSize = New System.Drawing.Size(732, 187)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.btnView)
         Me.Controls.Add(Me.Label2)
-        Me.Controls.Add(Me.lblMessage)
         Me.Controls.Add(Me.proBar)
         Me.Controls.Add(Me.btnExit)
         Me.Controls.Add(Me.btnProceed)
@@ -128,6 +140,8 @@ Partial Class frmCostExpenses
         Me.Controls.Add(Me.Label1)
         Me.Name = "frmCostExpenses"
         Me.Text = "Project_Cost_Report"
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -142,4 +156,5 @@ Partial Class frmCostExpenses
     Friend WithEvents Label1 As Windows.Forms.Label
     Friend WithEvents Label2 As Windows.Forms.Label
     Friend WithEvents btnView As Windows.Forms.Button
+    Friend WithEvents GroupBox1 As Windows.Forms.GroupBox
 End Class

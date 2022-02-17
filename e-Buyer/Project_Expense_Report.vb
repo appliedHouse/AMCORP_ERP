@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports System.Windows.Forms
+Imports Microsoft.Win32
 Imports Excel = Microsoft.Office.Interop.Excel
 
 Public Class frmProject_Expense_Report
@@ -23,29 +24,45 @@ Public Class frmProject_Expense_Report
 
 
     Private Sub frmProject_Expense_Report_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-        Refresh()
+        MyRefresh()
     End Sub
 
 
 
     Private Sub btnFile_Click(sender As Object, e As EventArgs) Handles btnFile.Click
-        Dim FileDialog As New OpenFileDialog()
 
-        FileDialog.InitialDirectory = "E:\AMCORP\Project Expense Sheet\PROJECTS EXPENSE SHEETS\"
+        Dim FileDialog As New OpenFileDialog()
+        Dim _Path As String = "SOFTWARE\Applied"
+        Dim _Key As String = "Path_ExpenseSheet"
+
+        Dim KeyCreate As RegistryKey = Registry.CurrentUser.CreateSubKey(_Path)
+        Dim KeyOpen As RegistryKey = Registry.CurrentUser.OpenSubKey(_Path)
+
+        If KeyOpen IsNot Nothing Then
+            FileDialog.InitialDirectory = KeyOpen.GetValue(_Key)
+        Else
+            FileDialog.InitialDirectory = "E:\AMCORP\Project Expense Sheet\PROJECTS EXPENSE SHEETS\"
+        End If
+
         FileDialog.Filter = "Excel File (*.xlsx)|*.xlsx|All files (*.*)|*.*"
         FileDialog.FilterIndex = 1
-        FileDialog.RestoreDirectory = True
+        FileDialog.RestoreDirectory = False
 
         Dim result As DialogResult = FileDialog.ShowDialog()
-
         txtFile.Text = FileDialog.FileName
+        txtFileName.Text = FileDialog.SafeFileName
 
-        Refresh()
+        Dim SavePath = Replace(txtFile.Text, txtFileName.Text, "")
+
+        If SavePath IsNot Nothing Then
+            KeyCreate.SetValue(_Key, SavePath)
+        End If
+
+        MyRefresh()
 
     End Sub
 
-    Private Sub Refresh()
+    Private Sub MyRefresh()
 
         proBar.Visible = False
 
@@ -65,8 +82,16 @@ Public Class frmProject_Expense_Report
         End If
 
         lblMessage.Text = "File is being loaded."
-        xlWorkBooks = xlApp.Workbooks.Open(ExcelFile)
-        xlWorkSheet = xlWorkBooks.Worksheets(4)
+
+        Try
+            xlWorkBooks = xlApp.Workbooks.Open(ExcelFile)
+            xlWorkSheet = xlWorkBooks.Worksheets(4)
+        Catch ex As Exception
+            MessageBox.Show("Error : " + ex.Message)
+            Return
+        End Try
+
+
 
         Dim Total_Transactions As Integer = xlWorkSheet.Range("H13").Value
         Dim StartCell As Integer = 13

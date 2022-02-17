@@ -1,4 +1,5 @@
 ﻿Imports System.Data
+Imports System.Windows.Forms
 Imports Connection_Class
 Public Class frmSupplier
 
@@ -95,10 +96,8 @@ Public Class frmSupplier
             dtExamptionFrom.Value = If(IsDBNull(_Row("ExemptionFromDate")), dtExamptionFrom.MinDate, _Row("ExemptionFromDate"))
             dtExamptionTo.Value = If(IsDBNull(_Row("ExemptionToDate")), dtExamptionFrom.MinDate, _Row("ExemptionToDate"))
             cboxCity.SelectedValue = Convert_TextBox(_Row("SupplierCityID"))
-
-            'Dim CboxIndex As Integer = Convert_TextBox(_Row("SupplierType"))
-            'cBoxStatus.SelectedIndex = CboxIndex
             cBoxStatus.SelectedIndex = Convert_TextBox(_Row("SupplierType"))
+
         Else
             txtID.Text = ""
             txtTitle.Text = ""
@@ -248,14 +247,15 @@ Public Class frmSupplier
                 Set_Data()
 
             Case "Update"
-
-
-                SQLCommandClass.Execute_SQLCommand(SQLCommandClass.UpdateCommand)
-                _Message = "Record has been Updated."
+                Try
+                    SQLCommandClass.Execute_SQLCommand(SQLCommandClass.UpdateCommand)
+                    _Message = "Record has been Updated."
+                Catch ex As Exception
+                    MsgBox(ex.Message)
+                End Try
 
             Case Else
                 _Message = "Record not updated."
-
         End Select
 
         MsgBox(_Message)                 ' Show Error Message if any.
@@ -317,5 +317,9 @@ Public Class frmSupplier
         MyRefresh()
     End Sub
 
-
+    Private Sub lblSupplier_Click(sender As Object, e As EventArgs) Handles lblSupplier.Click
+        TableRefresh = True
+        MyRefresh()
+        lblMessage.Text = "Data Tables have been refreshed"
+    End Sub
 End Class

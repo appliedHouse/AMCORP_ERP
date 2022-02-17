@@ -3,18 +3,14 @@ Imports System.Reflection
 
 Public Class START
 
-#Disable Warning CA2000 ' Dispose objects before losing scope
-
     Private Sub START_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim _Result As String = Assembly.GetExecutingAssembly().GetName().Version.ToString
         Label1.Text = _Result
     End Sub
 
     Private Sub mnuCreateSetupDB_Click(sender As Object, e As EventArgs) Handles mnuCreateSetupDB.Click
-
         Dim SetupClass As New Connection_Class.CreateSetup(DB_Defaults)
         SetupClass.CreateSetupDB(DB_Defaults)
-
     End Sub
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
@@ -22,25 +18,17 @@ Public Class START
     End Sub
 
     Private Sub mnuGetPWHash_Click(sender As Object, e As EventArgs) Handles mnuGetPWHash.Click
-
-
         Dim ShowForm As New frmGetPWHash
-
         ShowForm.Show()
-
     End Sub
 
     Private Sub mnuDatabase_Test_Click(sender As Object, e As EventArgs) Handles mnuDatabase_Test.Click
-
         Dim _form As New frmTest_Connection
         _form.Show()
-
     End Sub
 
     Private Sub AddDBConnectionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles AddDBConnectionToolStripMenuItem.Click
-
         Add_Connection()
-
     End Sub
 
     Private Sub mnuSupplierLedger_Click(sender As Object, e As EventArgs) Handles mnuSupplierLedger.Click
@@ -145,6 +133,13 @@ Public Class START
         ShowForm.Show()
     End Sub
 
-#Enable Warning CA2000 ' Dispose objects before losing scope
+    Private Sub mnuPurchaseInvoice_Click(sender As Object, e As EventArgs) Handles mnuPurchaseInvoice.Click
+        Dim ShowForm As New frmPurchaseInvoice()
+        ShowForm.Show()
+    End Sub
 
+    Private Sub mnuVoucherEdit_Click(sender As Object, e As EventArgs) Handles mnuVoucherEdit.Click
+        Dim ShowForm As New frmVouchers
+        ShowForm.Show()
+    End Sub
 End Class

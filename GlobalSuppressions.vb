@@ -6,3 +6,5 @@
 Imports System.Diagnostics.CodeAnalysis
 
 <Assembly: SuppressMessage("Naming", "CA1707:Identifiers should not contain underscores", Justification:="<Pending>")>
+<Assembly: SuppressMessage("Usage", "CA2213:Disposable fields should be disposed", Justification:="<Pending>")>
+<Assembly: SuppressMessage("Security", "CA2100:Review SQL queries for security vulnerabilities", Justification:="<Pending>")>

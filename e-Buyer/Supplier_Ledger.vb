@@ -5,8 +5,6 @@ Imports System.Data.SqlClient
 
 Public Class frmSupplier_Ledger
 
-#Disable Warning CA1303 ' Do not declare visible instance fields
-
     Private Property MyCompany As Integer = 1           ' Default Company is Amcorp (CompanyId = 1)
 
     Dim _DataTable_Company As DataTable

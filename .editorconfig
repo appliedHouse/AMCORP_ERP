@@ -11,3 +11,12 @@ dotnet_diagnostic.CA1304.severity = none
 
 # Default severity for all analyzer diagnostics
 dotnet_analyzer_diagnostic.severity = silent
+
+# CA2213: Disposable fields should be disposed
+dotnet_diagnostic.CA2213.severity = none
+
+# CA1051: Do not declare visible instance fields
+dotnet_diagnostic.CA1051.severity = none
+
+# Default severity for analyzer diagnostics with category 'Usage'
+dotnet_analyzer_diagnostic.category-Usage.severity = none
