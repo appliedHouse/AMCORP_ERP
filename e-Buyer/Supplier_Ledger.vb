@@ -107,7 +107,7 @@ Public Class frmSupplier_Ledger
 
         _Report.SQLConnection = Connection_Master()
         _Report.SQLCommand = _Report.SQLConnection.CreateCommand
-        _Report.SQLProcedure = "[master].[dbo].[Supplier Ledger eBuyer (Date)]"
+        _Report.SQLProcedure = "[master].[dbo].[Supplier Ledger eBuyer (Date)]"                                         ' SQL Query Name, what fatch date into report class table.
 
         _Report.SQLCommand.Parameters.AddWithValue("@CompanyID", _Report.CompanyID)
         _Report.SQLCommand.Parameters.AddWithValue("@SupplierID", _Report.SupplierID1)

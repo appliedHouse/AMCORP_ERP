@@ -142,7 +142,8 @@ Public Class frmPurchaseInvoice
 
         ' PURCHASE INVOCIES
         _Columns = {"TransactionID", "TransactionDate", "SupplierID", "ProjectID", "ItemID", "Quantity", "Rate", "GrossAmount", "GSTAmount", "NetAmount", "ItemDescription", "Status"}
-        _DisableColumns = {"TransactionID", "GrossAmount", "GSTAmount", "NetAmount", "Status"}
+        _DisableColumns = {"TransactionID", "Status"}
+        '_DisableColumns = {"TransactionID", "GrossAmount", "GSTAmount", "NetAmount", "Status"}
         For Each _Column As DataGridViewColumn In grid_PInvoice.Columns
             If _Columns.Contains(_Column.Name) Then
                 grid_PInvoice.Columns(_Column.Name).Visible = True
@@ -286,6 +287,10 @@ Public Class frmPurchaseInvoice
         End If
 
 
+
+    End Sub
+
+    Private Sub grid_Requisation_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles grid_Requisation.CellContentClick
 
     End Sub
 
