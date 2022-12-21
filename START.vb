@@ -5,7 +5,7 @@ Public Class START
 
     Private Sub START_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim _Result As String = Assembly.GetExecutingAssembly().GetName().Version.ToString
-        Label1.Text = _Result
+        lblVersion.Text = _Result
     End Sub
 
     Private Sub mnuCreateSetupDB_Click(sender As Object, e As EventArgs) Handles mnuCreateSetupDB.Click
@@ -142,4 +142,6 @@ Public Class START
         Dim ShowForm As New frmVouchers
         ShowForm.Show()
     End Sub
+
+
 End Class

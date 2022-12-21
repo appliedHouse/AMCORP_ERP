@@ -1,4 +1,5 @@
-﻿Imports System
+﻿Imports System.Resources
+Imports System
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 
@@ -30,5 +31,6 @@ Imports System.Runtime.InteropServices
 ' You can specify all the values or you can default the Build and Revision Numbers 
 ' by using the '*' as shown below:
 
-<Assembly: AssemblyVersion("2021.06.28.02")>
-<Assembly: AssemblyFileVersion("2021.06.28.02")>
+<Assembly: AssemblyVersion("2022.12.20.01")>
+<Assembly: AssemblyFileVersion("2022.12.20.01")>
+<Assembly: NeutralResourcesLanguage("en-US")>

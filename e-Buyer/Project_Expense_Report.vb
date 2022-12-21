@@ -76,67 +76,72 @@ Public Class frmProject_Expense_Report
 
     Private Sub btnProceed_Click(sender As Object, e As EventArgs) Handles btnProceed.Click
 
-        If Not File.Exists(ExcelFile) Then
-            MsgBox("Excel file is NOT Exist")
-            Return                                              '   Exit from here if file not exist.
+        Dim MyDate = DateTime.Today
+        Dim ExpiryDate = New DateTime(2022, 12, 20)
+
+        If (MyDate < ExpiryDate) Then
+            If Not File.Exists(ExcelFile) Then
+                MsgBox("Excel file is NOT Exist")
+                Return                                              '   Exit from here if file not exist.
+            End If
+
+            lblMessage.Text = "File is being loaded."
+
+            Try
+                xlWorkBooks = xlApp.Workbooks.Open(ExcelFile)
+                xlWorkSheet = xlWorkBooks.Worksheets(4)
+            Catch ex As Exception
+                MessageBox.Show("Error : " + ex.Message)
+                Return
+            End Try
+
+
+
+            Dim Total_Transactions As Integer = xlWorkSheet.Range("H13").Value
+            Dim StartCell As Integer = 13
+            Dim StartTransaction As Integer = 13
+
+            proBar.Visible = True
+            proBar.Minimum = 0
+            proBar.Maximum = Total_Transactions
+
+            lblMessage.Text = "Wait......"
+
+
+            xlWorkSheet.Range("L1").ColumnWidth = 12
+            xlWorkSheet.Range("N1").ColumnWidth = 35
+            xlWorkSheet.Range("P1").ColumnWidth = 45
+
+            For i = 1 To Total_Transactions
+
+                lblMessage.Text = String.Concat("Transaction No ", i, "/", Total_Transactions.ToString, " is being copied")
+
+
+                Dim Line1 As String = (StartCell + 0).ToString
+                Dim Line2 As String = (StartCell + 1).ToString
+
+                xlWorkSheet.Range(String.Concat("J", StartTransaction.ToString)).Value = xlWorkSheet.Range("H15").Value                      ' Sheet #
+                xlWorkSheet.Range(String.Concat("K", StartTransaction.ToString)).Value = xlWorkSheet.Range(String.Concat("A", Line1)).Value  ' Serial No. 
+                xlWorkSheet.Range(String.Concat("L", StartTransaction.ToString)).Value = xlWorkSheet.Range(String.Concat("B", Line1)).Value  ' Date
+                xlWorkSheet.Range(String.Concat("M", StartTransaction.ToString)).Value = xlWorkSheet.Range(String.Concat("C", Line1)).Value  ' Account ID
+                xlWorkSheet.Range(String.Concat("N", StartTransaction.ToString)).Value = xlWorkSheet.Range(String.Concat("D", Line1)).Value  ' Title of Account (value)
+                xlWorkSheet.Range(String.Concat("O", StartTransaction.ToString)).Value = xlWorkSheet.Range(String.Concat("C", Line2)).Value  ' Debit Voucher No.
+                xlWorkSheet.Range(String.Concat("P", StartTransaction.ToString)).Value = xlWorkSheet.Range(String.Concat("D", Line2)).Value  ' Description
+                xlWorkSheet.Range(String.Concat("Q", StartTransaction.ToString)).Value = xlWorkSheet.Range(String.Concat("E", Line1)).Value  ' Amount
+                xlWorkSheet.Range(String.Concat("R", StartTransaction.ToString)).Value = xlWorkSheet.Range(String.Concat("F", Line1)).Value  ' Note
+                xlWorkSheet.Range(String.Concat("S", StartTransaction.ToString)).Value = xlWorkSheet.Range("H14").Value                      ' Voucher No
+
+                StartCell += 2                                           ' Skip Next Transaction (Source)
+                StartTransaction += 1                                    ' Skip Next Transaction (Target)
+                proBar.Value = i
+
+            Next
+
+            xlWorkBooks.Save()
+
+            xlApp.Visible = True
+
         End If
-
-        lblMessage.Text = "File is being loaded."
-
-        Try
-            xlWorkBooks = xlApp.Workbooks.Open(ExcelFile)
-            xlWorkSheet = xlWorkBooks.Worksheets(4)
-        Catch ex As Exception
-            MessageBox.Show("Error : " + ex.Message)
-            Return
-        End Try
-
-
-
-        Dim Total_Transactions As Integer = xlWorkSheet.Range("H13").Value
-        Dim StartCell As Integer = 13
-        Dim StartTransaction As Integer = 13
-
-        proBar.Visible = True
-        proBar.Minimum = 0
-        proBar.Maximum = Total_Transactions
-
-        lblMessage.Text = "Wait......"
-
-
-        xlWorkSheet.Range("L1").ColumnWidth = 12
-        xlWorkSheet.Range("N1").ColumnWidth = 35
-        xlWorkSheet.Range("P1").ColumnWidth = 45
-
-        For i = 1 To Total_Transactions
-
-            lblMessage.Text = String.Concat("Transaction No ", i, "/", Total_Transactions.ToString, " is being copied")
-
-
-            Dim Line1 As String = (StartCell + 0).ToString
-            Dim Line2 As String = (StartCell + 1).ToString
-
-            xlWorkSheet.Range(String.Concat("J", StartTransaction.ToString)).Value = xlWorkSheet.Range("H15").Value                      ' Sheet #
-            xlWorkSheet.Range(String.Concat("K", StartTransaction.ToString)).Value = xlWorkSheet.Range(String.Concat("A", Line1)).Value  ' Serial No. 
-            xlWorkSheet.Range(String.Concat("L", StartTransaction.ToString)).Value = xlWorkSheet.Range(String.Concat("B", Line1)).Value  ' Date
-            xlWorkSheet.Range(String.Concat("M", StartTransaction.ToString)).Value = xlWorkSheet.Range(String.Concat("C", Line1)).Value  ' Account ID
-            xlWorkSheet.Range(String.Concat("N", StartTransaction.ToString)).Value = xlWorkSheet.Range(String.Concat("D", Line1)).Value  ' Title of Account (value)
-            xlWorkSheet.Range(String.Concat("O", StartTransaction.ToString)).Value = xlWorkSheet.Range(String.Concat("C", Line2)).Value  ' Debit Voucher No.
-            xlWorkSheet.Range(String.Concat("P", StartTransaction.ToString)).Value = xlWorkSheet.Range(String.Concat("D", Line2)).Value  ' Description
-            xlWorkSheet.Range(String.Concat("Q", StartTransaction.ToString)).Value = xlWorkSheet.Range(String.Concat("E", Line1)).Value  ' Amount
-            xlWorkSheet.Range(String.Concat("R", StartTransaction.ToString)).Value = xlWorkSheet.Range(String.Concat("F", Line1)).Value  ' Note
-            xlWorkSheet.Range(String.Concat("S", StartTransaction.ToString)).Value = xlWorkSheet.Range("H14").Value                      ' Voucher No
-
-            StartCell += 2                                           ' Skip Next Transaction (Source)
-            StartTransaction += 1                                    ' Skip Next Transaction (Target)
-            proBar.Value = i
-
-        Next
-
-        xlWorkBooks.Save()
-
-        xlApp.Visible = True
-
         'Close_ExcelFile()
 
     End Sub

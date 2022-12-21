@@ -49,6 +49,7 @@ Partial Class START
         Me.mnuItems_COA_Trans = New System.Windows.Forms.ToolStripMenuItem()
         Me.EFinanceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GeneralLedgerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuVoucherEdit = New System.Windows.Forms.ToolStripMenuItem()
         Me.TrialBalanceToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.BlanaceSheetToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ProfitLossAccountToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -66,8 +67,7 @@ Partial Class START
         Me.mnuMigration_AO = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuMigrationAmcorp = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuAGJV_PVT = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.mnuVoucherEdit = New System.Windows.Forms.ToolStripMenuItem()
+        Me.lblVersion = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -235,6 +235,12 @@ Partial Class START
         Me.GeneralLedgerToolStripMenuItem.Size = New System.Drawing.Size(189, 22)
         Me.GeneralLedgerToolStripMenuItem.Text = "General Ledger"
         '
+        'mnuVoucherEdit
+        '
+        Me.mnuVoucherEdit.Name = "mnuVoucherEdit"
+        Me.mnuVoucherEdit.Size = New System.Drawing.Size(189, 22)
+        Me.mnuVoucherEdit.Text = "Voucher Edit"
+        '
         'TrialBalanceToolStripMenuItem
         '
         Me.TrialBalanceToolStripMenuItem.Name = "TrialBalanceToolStripMenuItem"
@@ -339,27 +345,21 @@ Partial Class START
         Me.mnuAGJV_PVT.Size = New System.Drawing.Size(155, 22)
         Me.mnuAGJV_PVT.Text = "AGJV PVT LTD."
         '
-        'Label1
+        'lblVersion
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(13, 425)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(42, 13)
-        Me.Label1.TabIndex = 1
-        Me.Label1.Text = "Version"
-        '
-        'mnuVoucherEdit
-        '
-        Me.mnuVoucherEdit.Name = "mnuVoucherEdit"
-        Me.mnuVoucherEdit.Size = New System.Drawing.Size(189, 22)
-        Me.mnuVoucherEdit.Text = "Voucher Edit"
+        Me.lblVersion.AutoSize = True
+        Me.lblVersion.Location = New System.Drawing.Point(13, 425)
+        Me.lblVersion.Name = "lblVersion"
+        Me.lblVersion.Size = New System.Drawing.Size(42, 13)
+        Me.lblVersion.TabIndex = 1
+        Me.lblVersion.Text = "Version"
         '
         'START
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
-        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.lblVersion)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "START"
@@ -415,7 +415,7 @@ Partial Class START
     Friend WithEvents mnuCostReport As Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuUpdateExpenses As Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuAGJV_PVT As Windows.Forms.ToolStripMenuItem
-    Friend WithEvents Label1 As Windows.Forms.Label
+    Friend WithEvents lblVersion As Windows.Forms.Label
     Friend WithEvents mnuPurchaseInvoice As Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuVoucherEdit As Windows.Forms.ToolStripMenuItem
 End Class
