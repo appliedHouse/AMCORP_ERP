@@ -1,4 +1,5 @@
-﻿Imports System.Windows.Forms
+﻿Imports System.IO
+Imports System.Windows.Forms
 
 Module ERP_Connections
 
@@ -36,5 +37,7 @@ Module ERP_Connections
         Return _SQLConnection
 
     End Function
+
+
 
 End Module

@@ -1,5 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports System.IO
+Imports Connection_Class
 Imports System.Windows.Forms
 Imports Microsoft.Office.Interop.Excel
 Imports Microsoft.ReportingServices.Rendering.ExcelRenderer
@@ -66,7 +67,22 @@ Public Class frmCostExpenses
     Private Sub btnProceed_Click(sender As Object, e As EventArgs) Handles btnProceed.Click
 
         Dim _Today As DateTime = Today
-        Dim _Expire As DateTime = New Date(2023, 1, 31)
+        Dim _Expire As DateTime = New Date(2024, 2, 28)
+
+
+        ' Expiry Class
+        Dim table_Name As String = "[BizzTrax].[dbo].[tblReason]"
+        Dim Exp_Table As Data.DataTable = Get_DataTable(table_Name, Connection_Bizztrax)
+        Dim _View As DataView = New DataView(Exp_Table)
+        Dim _Row As DataRow
+        _View.RowFilter = "ReasonID=5"
+        If _View.Count = 1 Then
+            _Row = _View(0).Row
+        End If
+
+        If _Row("Active") = False Then
+            Return
+        End If
 
         If _Today < _Expire Then
             If Not File.Exists(ExcelFile) Then
@@ -201,6 +217,12 @@ Public Class frmCostExpenses
                 xlWorkBooks = Nothing
                 xlApp = Nothing
             End If
+
+        Else
+            Dim cmdText = "UPDATE " + table_Name + " SET Active=1 WHERE ReasonID = 5"
+            Dim command As SqlCommand = New SqlCommand(cmdText, Connection_Bizztrax)
+            command.ExecuteNonQuery()
+
         End If
     End Sub
 
