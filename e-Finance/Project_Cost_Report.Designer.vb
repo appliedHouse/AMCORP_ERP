@@ -32,6 +32,7 @@ Partial Class frmCostExpenses
         Me.Label2 = New System.Windows.Forms.Label()
         Me.btnView = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.rb_Thar = New System.Windows.Forms.RadioButton()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -124,11 +125,23 @@ Partial Class frmCostExpenses
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "MESSAGE"
         '
+        'rb_Thar
+        '
+        Me.rb_Thar.AutoSize = True
+        Me.rb_Thar.Location = New System.Drawing.Point(176, 83)
+        Me.rb_Thar.Name = "rb_Thar"
+        Me.rb_Thar.Size = New System.Drawing.Size(67, 17)
+        Me.rb_Thar.TabIndex = 17
+        Me.rb_Thar.TabStop = True
+        Me.rb_Thar.Text = "Thar OM"
+        Me.rb_Thar.UseVisualStyleBackColor = True
+        '
         'frmCostExpenses
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(732, 187)
+        Me.Controls.Add(Me.rb_Thar)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.btnView)
         Me.Controls.Add(Me.Label2)
@@ -157,4 +170,5 @@ Partial Class frmCostExpenses
     Friend WithEvents Label2 As Windows.Forms.Label
     Friend WithEvents btnView As Windows.Forms.Button
     Friend WithEvents GroupBox1 As Windows.Forms.GroupBox
+    Friend WithEvents rb_Thar As Windows.Forms.RadioButton
 End Class

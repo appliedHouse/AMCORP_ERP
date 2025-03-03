@@ -1,0 +1,9 @@
+﻿
+select CompanyID,* from tblDetailPurchaseInvoice where ExpenseID<>'-1' and ExpenseTranID<>'-1'
+Go
+update tblDetailPurchaseInvoice set ExpenseID='-1',ExpenseTranID='-1' where ExpenseID<>'-1' and ExpenseTranID<>'-1'
+Go
+
+select CompanyID,* from tblTranDetail where TaxDeductionID<>'-1' 
+
+update tblTranDetail set TaxDeductionID='-1',SNo='-1' where TaxDeductionID<>'-1' 

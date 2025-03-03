@@ -67,6 +67,7 @@ Partial Class START
         Me.mnuMigration_AO = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuMigrationAmcorp = New System.Windows.Forms.ToolStripMenuItem()
         Me.mnuAGJV_PVT = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mnuSaita = New System.Windows.Forms.ToolStripMenuItem()
         Me.lblVersion = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -322,7 +323,7 @@ Partial Class START
         '
         'mnuOrentJV
         '
-        Me.mnuOrentJV.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuMigration_AO, Me.mnuMigrationAmcorp, Me.mnuAGJV_PVT})
+        Me.mnuOrentJV.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mnuMigration_AO, Me.mnuMigrationAmcorp, Me.mnuAGJV_PVT, Me.mnuSaita})
         Me.mnuOrentJV.Name = "mnuOrentJV"
         Me.mnuOrentJV.Size = New System.Drawing.Size(76, 23)
         Me.mnuOrentJV.Text = "Migrations"
@@ -330,20 +331,26 @@ Partial Class START
         'mnuMigration_AO
         '
         Me.mnuMigration_AO.Name = "mnuMigration_AO"
-        Me.mnuMigration_AO.Size = New System.Drawing.Size(155, 22)
+        Me.mnuMigration_AO.Size = New System.Drawing.Size(180, 22)
         Me.mnuMigration_AO.Text = "Amcorp-Orient"
         '
         'mnuMigrationAmcorp
         '
         Me.mnuMigrationAmcorp.Name = "mnuMigrationAmcorp"
-        Me.mnuMigrationAmcorp.Size = New System.Drawing.Size(155, 22)
+        Me.mnuMigrationAmcorp.Size = New System.Drawing.Size(180, 22)
         Me.mnuMigrationAmcorp.Text = "AMCORP"
         '
         'mnuAGJV_PVT
         '
         Me.mnuAGJV_PVT.Name = "mnuAGJV_PVT"
-        Me.mnuAGJV_PVT.Size = New System.Drawing.Size(155, 22)
+        Me.mnuAGJV_PVT.Size = New System.Drawing.Size(180, 22)
         Me.mnuAGJV_PVT.Text = "AGJV PVT LTD."
+        '
+        'mnuSaita
+        '
+        Me.mnuSaita.Name = "mnuSaita"
+        Me.mnuSaita.Size = New System.Drawing.Size(180, 22)
+        Me.mnuSaita.Text = "Saita Pakistan Ltd."
         '
         'lblVersion
         '
@@ -418,4 +425,5 @@ Partial Class START
     Friend WithEvents lblVersion As Windows.Forms.Label
     Friend WithEvents mnuPurchaseInvoice As Windows.Forms.ToolStripMenuItem
     Friend WithEvents mnuVoucherEdit As Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mnuSaita As Windows.Forms.ToolStripMenuItem
 End Class

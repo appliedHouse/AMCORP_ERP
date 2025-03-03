@@ -12,15 +12,16 @@ Option Strict On
 Option Explicit On
 
 
-
-<Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
- Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0"),  _
- Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)>  _
-Partial Friend NotInheritable Class Settings
-    Inherits Global.System.Configuration.ApplicationSettingsBase
+Namespace My
     
-    Private Shared defaultInstance As Settings = CType(Global.System.Configuration.ApplicationSettingsBase.Synchronized(New Settings()),Settings)
-    
+    <Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.12.0.0"),  _
+     Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)>  _
+    Partial Friend NotInheritable Class Settings
+        Inherits Global.System.Configuration.ApplicationSettingsBase
+        
+        Private Shared defaultInstance As Settings = CType(Global.System.Configuration.ApplicationSettingsBase.Synchronized(New Settings()),Settings)
+        
 #Region "My.Settings Auto-Save Functionality"
 #If _MyType = "WindowsForms" Then
     Private Shared addedHandler As Boolean
@@ -35,10 +36,10 @@ Partial Friend NotInheritable Class Settings
     End Sub
 #End If
 #End Region
-    
-    Public Shared ReadOnly Property [Default]() As Settings
-        Get
-            
+        
+        Public Shared ReadOnly Property [Default]() As Settings
+            Get
+                
 #If _MyType = "WindowsForms" Then
                If Not addedHandler Then
                     SyncLock addedHandlerLockObject
@@ -49,154 +50,155 @@ Partial Friend NotInheritable Class Settings
                     End SyncLock
                 End If
 #End If
-            Return defaultInstance
-        End Get
-    End Property
-    
-    <Global.System.Configuration.UserScopedSettingAttribute(),  _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("(LocalDB)")>  _
-    Public Property SetupDBEngine() As String
-        Get
-            Return CType(Me("SetupDBEngine"),String)
-        End Get
-        Set
-            Me("SetupDBEngine") = value
-        End Set
-    End Property
-    
-    <Global.System.Configuration.UserScopedSettingAttribute(),  _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("AMCORP_ERP1")>  _
-    Public Property SetupDBInstance() As String
-        Get
-            Return CType(Me("SetupDBInstance"),String)
-        End Get
-        Set
-            Me("SetupDBInstance") = value
-        End Set
-    End Property
-    
-    <Global.System.Configuration.UserScopedSettingAttribute(),  _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("AppliedLogin")>  _
-    Public Property SetupDBLogin() As String
-        Get
-            Return CType(Me("SetupDBLogin"),String)
-        End Get
-        Set
-            Me("SetupDBLogin") = value
-        End Set
-    End Property
-    
-    <Global.System.Configuration.UserScopedSettingAttribute(),  _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("SzEw4tUbceDbokUAQ9M3JRCGnExhi9S3")>  _
-    Public Property SetupDBPWHash() As String
-        Get
-            Return CType(Me("SetupDBPWHash"),String)
-        End Get
-        Set
-            Me("SetupDBPWHash") = value
-        End Set
-    End Property
-    
-    <Global.System.Configuration.UserScopedSettingAttribute(),  _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("E:\AMCORP_ERP_APP\Setup_Database\")>  _
-    Public Property SetupDBPath() As String
-        Get
-            Return CType(Me("SetupDBPath"),String)
-        End Get
-        Set
-            Me("SetupDBPath") = value
-        End Set
-    End Property
-    
-    <Global.System.Configuration.UserScopedSettingAttribute(),  _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("#")>  _
-    Public Property PWChar() As String
-        Get
-            Return CType(Me("PWChar"),String)
-        End Get
-        Set
-            Me("PWChar") = value
-        End Set
-    End Property
-    
-    <Global.System.Configuration.UserScopedSettingAttribute(),  _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("AMCORP")>  _
-    Public Property PWWrapper() As String
-        Get
-            Return CType(Me("PWWrapper"),String)
-        End Get
-        Set
-            Me("PWWrapper") = value
-        End Set
-    End Property
-    
-    <Global.System.Configuration.UserScopedSettingAttribute(),  _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("dd-MMM-yyyy")>  _
-    Public Property DateFormat() As String
-        Get
-            Return CType(Me("DateFormat"),String)
-        End Get
-        Set
-            Me("DateFormat") = value
-        End Set
-    End Property
-    
-    <Global.System.Configuration.UserScopedSettingAttribute(),  _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("_(* #,##0_);_(* (#,##0);_(* - ")>  _
-    Public Property AmountFormat() As String
-        Get
-            Return CType(Me("AmountFormat"),String)
-        End Get
-        Set
-            Me("AmountFormat") = value
-        End Set
-    End Property
-    
-    <Global.System.Configuration.UserScopedSettingAttribute(),  _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("2017-07-01")>  _
-    Public Property ReportFrom() As String
-        Get
-            Return CType(Me("ReportFrom"),String)
-        End Get
-        Set
-            Me("ReportFrom") = value
-        End Set
-    End Property
-    
-    <Global.System.Configuration.UserScopedSettingAttribute(),  _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("AMCORP Engineering and Construction (Pvt) Limited")>  _
-    Public Property CompanyName() As String
-        Get
-            Return CType(Me("CompanyName"),String)
-        End Get
-        Set
-            Me("CompanyName") = value
-        End Set
-    End Property
-    
-    <Global.System.Configuration.UserScopedSettingAttribute(),  _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("LS-30, Block 13, F. B. Area, Karachi.")>  _
-    Public Property CompanyAddress() As String
-        Get
-            Return CType(Me("CompanyAddress"),String)
-        End Get
-        Set
-            Me("CompanyAddress") = value
-        End Set
-    End Property
-End Class
+                Return defaultInstance
+            End Get
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("(LocalDB)")>  _
+        Public Property SetupDBEngine() As String
+            Get
+                Return CType(Me("SetupDBEngine"),String)
+            End Get
+            Set
+                Me("SetupDBEngine") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("AMCORP_ERP1")>  _
+        Public Property SetupDBInstance() As String
+            Get
+                Return CType(Me("SetupDBInstance"),String)
+            End Get
+            Set
+                Me("SetupDBInstance") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("AppliedLogin")>  _
+        Public Property SetupDBLogin() As String
+            Get
+                Return CType(Me("SetupDBLogin"),String)
+            End Get
+            Set
+                Me("SetupDBLogin") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("SzEw4tUbceDbokUAQ9M3JRCGnExhi9S3")>  _
+        Public Property SetupDBPWHash() As String
+            Get
+                Return CType(Me("SetupDBPWHash"),String)
+            End Get
+            Set
+                Me("SetupDBPWHash") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("E:\AMCORP_ERP_APP\Setup_Database\")>  _
+        Public Property SetupDBPath() As String
+            Get
+                Return CType(Me("SetupDBPath"),String)
+            End Get
+            Set
+                Me("SetupDBPath") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("#")>  _
+        Public Property PWChar() As String
+            Get
+                Return CType(Me("PWChar"),String)
+            End Get
+            Set
+                Me("PWChar") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("AMCORP")>  _
+        Public Property PWWrapper() As String
+            Get
+                Return CType(Me("PWWrapper"),String)
+            End Get
+            Set
+                Me("PWWrapper") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("dd-MMM-yyyy")>  _
+        Public Property DateFormat() As String
+            Get
+                Return CType(Me("DateFormat"),String)
+            End Get
+            Set
+                Me("DateFormat") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("_(* #,##0_);_(* (#,##0);_(* - ")>  _
+        Public Property AmountFormat() As String
+            Get
+                Return CType(Me("AmountFormat"),String)
+            End Get
+            Set
+                Me("AmountFormat") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("2017-07-01")>  _
+        Public Property ReportFrom() As String
+            Get
+                Return CType(Me("ReportFrom"),String)
+            End Get
+            Set
+                Me("ReportFrom") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("AMCORP Engineering and Construction (Pvt) Limited")>  _
+        Public Property CompanyName() As String
+            Get
+                Return CType(Me("CompanyName"),String)
+            End Get
+            Set
+                Me("CompanyName") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("LS-30, Block 13, F. B. Area, Karachi.")>  _
+        Public Property CompanyAddress() As String
+            Get
+                Return CType(Me("CompanyAddress"),String)
+            End Get
+            Set
+                Me("CompanyAddress") = value
+            End Set
+        End Property
+    End Class
+End Namespace
 
 Namespace My
     
@@ -206,9 +208,9 @@ Namespace My
     Friend Module MySettingsProperty
         
         <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")>  _
-        Friend ReadOnly Property Settings() As Global.AMCORP_ERP.Settings
+        Friend ReadOnly Property Settings() As Global.AMCORP_ERP.My.Settings
             Get
-                Return Global.AMCORP_ERP.Settings.Default
+                Return Global.AMCORP_ERP.My.Settings.Default
             End Get
         End Property
     End Module

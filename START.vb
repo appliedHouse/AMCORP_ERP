@@ -143,5 +143,8 @@ Public Class START
         ShowForm.Show()
     End Sub
 
-
+    Private Sub mnuSaita_Click(sender As Object, e As EventArgs) Handles mnuSaita.Click
+        Dim ShowForm As New frmMigrations_Amcorp
+        ShowForm.Show()
+    End Sub
 End Class

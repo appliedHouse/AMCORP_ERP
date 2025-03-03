@@ -67,7 +67,8 @@ Public Class frmCostExpenses
     Private Sub btnProceed_Click(sender As Object, e As EventArgs) Handles btnProceed.Click
 
         Dim _Today As DateTime = Today
-        Dim _Expire As DateTime = New Date(2024, 2, 28)
+        Dim _Expire As DateTime = New Date(2026, 2, 28)
+
 
 
         ' Expiry Class
@@ -107,16 +108,36 @@ Public Class frmCostExpenses
             Dim _SQLCommandInvoice As New SqlCommand("", Connection_Amcorp)
             Dim _SQLCommandNotes As New SqlCommand("", Connection_Amcorp)
 
-            _SQLCommandLedgers.CommandText = "UPDATE [tblTranDetail] SET [SNo] = @Heading, [TaxDeductionID] = @ExpenseID WHERE [TranDtlID] = @TranDtlID"
-            _SQLCommandInvoice.CommandText = "UPDATE [tblDetailPurchaseInvoice] SET [ExpenseTranID] = @Heading, [ExpenseID] = @ExpenseID WHERE [TranDtlID] = @TranDtlID"
+            If rb_Thar.Checked Then
 
-            _SQLCommandLedgers.Parameters.AddWithValue("@TranDtlID", 0)
-            _SQLCommandLedgers.Parameters.AddWithValue("@Heading", 0)
-            _SQLCommandLedgers.Parameters.AddWithValue("@ExpenseID", 0)
+                _SQLCommandLedgers.CommandText = "UPDATE [tblTranDetail] SET [SNo] = @Heading, [TaxDeductionID] = @ExpenseID, [ChequeSeriesTranID] = @SubHeading WHERE [TranDtlID] = @TranDtlID"
+                _SQLCommandInvoice.CommandText = "UPDATE [tblDetailPurchaseInvoice] SET [ExpenseTranID] = @Heading, [ExpenseID] = @ExpenseID, [ExpenseTranDtlID] = @SubHeading WHERE [TranDtlID] = @TranDtlID"
 
-            _SQLCommandInvoice.Parameters.AddWithValue("@TranDtlID", 0)
-            _SQLCommandInvoice.Parameters.AddWithValue("@Heading", 0)
-            _SQLCommandInvoice.Parameters.AddWithValue("@ExpenseID", 0)
+                _SQLCommandLedgers.Parameters.AddWithValue("@TranDtlID", 0)
+                _SQLCommandLedgers.Parameters.AddWithValue("@Heading", 0)
+                _SQLCommandLedgers.Parameters.AddWithValue("@ExpenseID", 0)
+                _SQLCommandLedgers.Parameters.AddWithValue("@SubHeading", 0)
+
+                _SQLCommandInvoice.Parameters.AddWithValue("@TranDtlID", 0)
+                _SQLCommandInvoice.Parameters.AddWithValue("@Heading", 0)
+                _SQLCommandInvoice.Parameters.AddWithValue("@ExpenseID", 0)
+                _SQLCommandInvoice.Parameters.AddWithValue("@SubHeading", 0)
+
+            Else
+
+                _SQLCommandLedgers.CommandText = "UPDATE [tblTranDetail] SET [SNo] = @Heading, [TaxDeductionID] = @ExpenseID WHERE [TranDtlID] = @TranDtlID"
+                _SQLCommandInvoice.CommandText = "UPDATE [tblDetailPurchaseInvoice] SET [ExpenseTranID] = @Heading, [ExpenseID] = @ExpenseID WHERE [TranDtlID] = @TranDtlID"
+
+                _SQLCommandLedgers.Parameters.AddWithValue("@TranDtlID", 0)
+                _SQLCommandLedgers.Parameters.AddWithValue("@Heading", 0)
+                _SQLCommandLedgers.Parameters.AddWithValue("@ExpenseID", 0)
+
+                _SQLCommandInvoice.Parameters.AddWithValue("@TranDtlID", 0)
+                _SQLCommandInvoice.Parameters.AddWithValue("@Heading", 0)
+                _SQLCommandInvoice.Parameters.AddWithValue("@ExpenseID", 0)
+
+            End If
+
 
 #End Region
 
@@ -133,6 +154,7 @@ Public Class frmCostExpenses
             proBar.Maximum = Total_Transactions
 
             Dim _Cost_Head As Integer
+            Dim _Sub_Head As Integer
             Dim _Cost_COA As Integer
             Dim _TranDtlID As Integer
             Dim _PostingType As String
@@ -143,83 +165,99 @@ Public Class frmCostExpenses
             Dim Head_Index As Integer = Table_Range.ListColumns("CostHead").Index
             Dim COA_Index As Integer = Table_Range.ListColumns("CostCOA").Index
             Dim Type_Index As Integer = Table_Range.ListColumns("PostingType").Index
+            Dim SubHead_Index As Integer
+
+            If rb_Thar.Checked Then
+                SubHead_Index = Table_Range.ListColumns("Sub-Head").Index
+            End If
 
             For i = 1 To Total_Transactions
 
-                _TranDtlID = Convert.ToInt32(Table_Range.DataBodyRange(i, Tran_Index).Value)
-                _Cost_Head = Convert.ToInt32(Table_Range.DataBodyRange(i, Head_Index).Value)
+                    _TranDtlID = Convert.ToInt32(Table_Range.DataBodyRange(i, Tran_Index).Value)
+                    _Cost_Head = Convert.ToInt32(Table_Range.DataBodyRange(i, Head_Index).Value)
                 _Cost_COA = Convert.ToInt32(Table_Range.DataBodyRange(i, COA_Index).Value)
+                If rb_Thar.Checked Then
+                    _Sub_Head = Convert.ToInt32(Table_Range.DataBodyRange(i, SubHead_Index).Value)
+                End If
                 _PostingType = Table_Range.DataBodyRange(i, Type_Index).Value.ToString
 
-                If _PostingType = "Purchase Invoice" Then
+                    If _PostingType = "Purchase Invoice" Then
 
-                    If (_TranDtlID > 0) Then
-                        _SQLCommandInvoice.Parameters("@TrandtlID").Value = _TranDtlID
-                        _SQLCommandInvoice.Parameters("@Heading").Value = _Cost_Head
+                        If (_TranDtlID > 0) Then
+                            _SQLCommandInvoice.Parameters("@TrandtlID").Value = _TranDtlID
+                            _SQLCommandInvoice.Parameters("@Heading").Value = _Cost_Head
                         _SQLCommandInvoice.Parameters("@ExpenseID").Value = _Cost_COA
+                        If rb_Thar.Checked Then
+                            _SQLCommandInvoice.Parameters("@SubHeading").Value = _Sub_Head
+                        End If
 
                         _Result = _SQLCommandInvoice.ExecuteNonQuery()
 
-                        If (_Result > 1) Then
-                            MsgBox("SQL Query hit more than 1 record" + _Result.ToString)
+                            If (_Result > 1) Then
+                                MsgBox("SQL Query hit more than 1 record" + _Result.ToString)
+                            End If
+
+                            MyTitle = String.Concat("Transaction ID = ", _TranDtlID, " | Heading =", _Cost_Head, " | Expense ID =", _Cost_COA, " | SQL Updated ", _Result, " Record(s) ")
+                        Else
+                            MsgBox("Transaction ID is Zero")
+                            Stop
                         End If
 
-                        MyTitle = String.Concat("Transaction ID = ", _TranDtlID, " | Heading =", _Cost_Head, " | Expense ID =", _Cost_COA, " | SQL Updated ", _Result, " Record(s) ")
-                    Else
-                        MsgBox("Transaction ID is Zero")
-                        Stop
                     End If
 
-                End If
+                    If (_PostingType = "Supplier Debit Note" Or _PostingType = "Supplier Credit Note") Then
 
-                If (_PostingType = "Supplier Debit Note" Or _PostingType = "Supplier Credit Note") Then
-
-                    _SQLCommandLedgers.Parameters("@TranDtlID").Value = _TranDtlID
-                    _SQLCommandLedgers.Parameters("@Heading").Value = _Cost_Head
+                        _SQLCommandLedgers.Parameters("@TranDtlID").Value = _TranDtlID
+                        _SQLCommandLedgers.Parameters("@Heading").Value = _Cost_Head
                     _SQLCommandLedgers.Parameters("@ExpenseID").Value = _Cost_COA
+                    If rb_Thar.Checked Then
+                        _SQLCommandLedgers.Parameters("@SubHeading").Value = _Sub_Head
+                    End If
+
 
                     _Result = _SQLCommandLedgers.ExecuteNonQuery()
 
-                    MyTitle = String.Concat("Transaction ID = ", _TranDtlID, " | Heading =", _Cost_Head, " | Expense ID =", _Cost_COA, " | SQL Updated ", _Result, " Record(s) ")
+                        MyTitle = String.Concat("Transaction ID = ", _TranDtlID, " | Heading =", _Cost_Head, " | Expense ID =", _Cost_COA, " | SQL Updated ", _Result, " Record(s) ")
 
-                End If
+                    End If
 
+                    If _PostingType = "Accounts" Then
 
-
-                If _PostingType = "Accounts" Then
-
-                    _SQLCommandLedgers.Parameters("@TranDtlID").Value = _TranDtlID
-                    _SQLCommandLedgers.Parameters("@Heading").Value = _Cost_Head
+                        _SQLCommandLedgers.Parameters("@TranDtlID").Value = _TranDtlID
+                        _SQLCommandLedgers.Parameters("@Heading").Value = _Cost_Head
                     _SQLCommandLedgers.Parameters("@ExpenseID").Value = _Cost_COA
 
+                    If rb_Thar.Checked Then
+                        _SQLCommandLedgers.Parameters("@SubHeading").Value = _Sub_Head
+                    End If
                     _Result = _SQLCommandLedgers.ExecuteNonQuery()
 
-                    MyTitle = String.Concat("Transaction ID = ", _TranDtlID, " | Heading =", _Cost_Head, " | Expense ID =", _Cost_COA, " | SQL Updated ", _Result, " Record(s) ")
+                        MyTitle = String.Concat("Transaction ID = ", _TranDtlID, " | Heading =", _Cost_Head, " | Expense ID =", _Cost_COA, " | SQL Updated ", _Result, " Record(s) ")
 
+                    End If
+
+                    lblMessage.Text = MyTitle
+                    proBar.Value = i
+
+                Next
+
+                lblMessage.Text = String.Concat("TOTAL Number of Data Records ", Total_Transactions)
+
+                'xlWorkBooks.Save()
+
+                xlApp.Visible = True
+
+                If Close_at_end Then
+                    proBar.Visible = False
+                    '    'xlWorkBooks.Close()
+                    '    'xlApp.Quit()
+                    xlWorkSheet = Nothing
+                    xlWorkBooks = Nothing
+                    xlApp = Nothing
                 End If
 
-                lblMessage.Text = MyTitle
-                proBar.Value = i
-
-            Next
-
-            lblMessage.Text = String.Concat("TOTAL Number of Data Records ", Total_Transactions)
-
-            'xlWorkBooks.Save()
-
-            xlApp.Visible = True
-
-            If Close_at_end Then
-                proBar.Visible = False
-                '    'xlWorkBooks.Close()
-                '    'xlApp.Quit()
-                xlWorkSheet = Nothing
-                xlWorkBooks = Nothing
-                xlApp = Nothing
-            End If
-
-        Else
-            Dim cmdText = "UPDATE " + table_Name + " SET Active=1 WHERE ReasonID = 5"
+            Else
+                Dim cmdText = "UPDATE " + table_Name + " SET Active=1 WHERE ReasonID = 5"
             Dim command As SqlCommand = New SqlCommand(cmdText, Connection_Bizztrax)
             command.ExecuteNonQuery()
 

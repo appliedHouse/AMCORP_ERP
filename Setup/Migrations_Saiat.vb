@@ -9,13 +9,16 @@ Imports System.Collections
 Public Class frmMigrations_Amcorp
 
     Private ReadOnly FilePath As String = "E:\AMCORP\Migration\"
-    Private ReadOnly FileName As String = "Migrations_Saita.xlsx"
+    Private ReadOnly FileName As String = "Migrations_AGJV_PVT.xlsx"
     Private ReadOnly ExcelFile As String = String.Concat(FilePath, FileName)
 
+
+
+
     Private ReadOnly TableNameCOAcat As String = "[dbo].[tblAccountCategory]"               ' Chart of Accounts Category
-    Private ReadOnly TableNameCOA As String = "[dbo].[tblChartofAccount]"                                  ' Chart of Accounts
+    Private ReadOnly TableNameCOA As String = "[dbo].[tblChartofAccount]"                   ' Chart of Accounts
     Private ReadOnly TableNameCOAUnits As String = "[dbo].[tblChartAccount_CompanyUnit]"    ' COA Branch Units
-    Private ReadOnly TableNameItemCat As String = "[dbo].[tblCategory]"                                      ' Products' Item Category
+    Private ReadOnly TableNameItemCat As String = "[dbo].[tblCategory]"                     ' Products' Item Category
     Private ReadOnly TableNameItems As String = "[dbo].[tblItem]"                           ' List of Product Items
     Private ReadOnly TableNameItemsFlag As String = "[dbo].[tblItemFlag]"                   ' Items Flag
     Private ReadOnly TableNameItemsMapping As String = "[dbo].[tblItem_ChartofAccount]"     ' Items Mapping with COA
@@ -58,7 +61,7 @@ Public Class frmMigrations_Amcorp
     Private LastLine As Integer
     Private MyUnits As Array                                 ' Add Branch in company chart of Accounts
 
-    Private Property SourceCompanyID As Integer = 2         ' Select Amcor-Orient JV Company
+    Private Property SourceCompanyID As Integer = 7          ' Select Amcor-Orient JV Company
     Private Property MyDataTable As DataTable
     Private Property MyPrimaryKeyName As String
     Private Property MyPrimaryKeyValue As Integer
