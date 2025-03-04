@@ -84,8 +84,8 @@ Public Class frmSupplier_Ledger
         _Report.ShowProperties = False                                               ' Show Properties when it call ShowParameters()
         _Report.CompanyID = cBoxCompany.SelectedValue
         _Report.CompanyName = cBoxCompany.Text
-        _Report.DateFormatText = My.Settings.DateFormat
-        _Report.AmountFormat = My.Settings.AmountFormat
+        _Report.DateFormatText = My.Settings.Default.DateFormat
+        _Report.AmountFormat = My.Settings.Default.AmountFormat
         _Report.ReportSort = "[Project ID],[Vou Date]"
         _Report.SupplierID1 = cboxSupplier.SelectedValue
         _Report.DateFrom = dtReportFrom.Value
@@ -136,12 +136,12 @@ Public Class frmSupplier_Ledger
         Dim _DataTable As New DataTable
 
         _Report.ShowProperties = False                                               ' Show Properties when it call ShowParameters()
-        _Report.CompanyName = My.Settings.CompanyAddress
-        _Report.CompanyAddress = My.Settings.CompanyAddress
+        _Report.CompanyName = My.Settings.Default.CompanyAddress
+        _Report.CompanyAddress = My.Settings.Default.CompanyAddress
 
         _Report.ReportSort = "[Vou Date]"
-        _Report.DateFormatText = My.Settings.DateFormat
-        _Report.AmountFormat = My.Settings.AmountFormat
+        _Report.DateFormatText = My.Settings.Default.DateFormat
+        _Report.AmountFormat = My.Settings.Default.AmountFormat
         _Report.SupplierID1 = cboxSupplier.SelectedValue
         _Report.DateFrom = dtReportFrom.Value
         _Report.DateTo = dtReportTo.Value
@@ -195,8 +195,8 @@ Public Class frmSupplier_Ledger
         Report.ShowProperties = False                                               ' Show Properties when it call ShowParameters()
 
         Report.ReportSort = "[Project Title]"
-        Report.DateFormatText = My.Settings.DateFormat
-        Report.AmountFormat = My.Settings.AmountFormat
+        Report.DateFormatText = My.Settings.Default.DateFormat
+        Report.AmountFormat = My.Settings.Default.AmountFormat
         Report.SupplierID1 = cboxSupplier.SelectedValue
         Report.DateFrom = dtReportFrom.Value
         Report.DateTo = dtReportTo.Value

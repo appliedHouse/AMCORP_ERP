@@ -250,7 +250,7 @@ Module CopyCOA_AG_JV_
     End Function
 
     Private Function UpdateUnits(_COA As Integer, _Unit As Integer, _Company As Integer)
-        Dim _Result As String
+
         Dim IsError As Boolean = False
         Dim View_Table As New DataView
         View_Table.Table = Table_Units
@@ -270,7 +270,6 @@ Module CopyCOA_AG_JV_
         'Dim _Result As Integer = 0
 
         If Not IsError Then
-            Dim EfectedRows As Integer
             _SQLCommand.ExecuteNonQuery()
         End If
 

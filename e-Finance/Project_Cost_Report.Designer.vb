@@ -99,7 +99,7 @@ Partial Class frmCostExpenses
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.Label2.ForeColor = System.Drawing.Color.IndianRed
         Me.Label2.Location = New System.Drawing.Point(187, 12)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(358, 24)

@@ -9,12 +9,12 @@ Module AMCORP_Modules
         Get
             Dim _DB_Defaults As New Default_Values
 
-            _DB_Defaults.SQLInstance = My.Settings.SetupDBInstance
-            _DB_Defaults.DBEngine = My.Settings.SetupDBEngine
-            _DB_Defaults.DBPath = My.Settings.SetupDBPath
-            _DB_Defaults.DBLogin = My.Settings.SetupDBLogin
-            _DB_Defaults.DBPWHash = My.Settings.SetupDBPWHash
-            _DB_Defaults.DBPWWrapper = My.Settings.PWWrapper
+            _DB_Defaults.SQLInstance = My.Settings.Default.SetupDBInstance
+            _DB_Defaults.DBEngine = My.Settings.Default.SetupDBEngine
+            _DB_Defaults.DBPath = My.Settings.Default.SetupDBPath
+            _DB_Defaults.DBLogin = My.Settings.Default.SetupDBLogin
+            _DB_Defaults.DBPWHash = My.Settings.Default.SetupDBPWHash
+            _DB_Defaults.DBPWWrapper = My.Settings.Default.PWWrapper
 
             Return _DB_Defaults
         End Get

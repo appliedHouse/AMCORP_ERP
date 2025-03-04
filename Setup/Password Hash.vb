@@ -1,7 +1,7 @@
 ﻿Imports System.Windows.Forms
 Public Class frmGetPWHash
 
-    Dim PasswordChar As Char = My.Settings.PWChar
+    Dim PasswordChar As Char = My.Settings.Default.PWChar
 
     Private Sub chkPWView_CheckedChanged(sender As Object, e As EventArgs) Handles chkPWView.CheckedChanged
 
@@ -17,7 +17,7 @@ Public Class frmGetPWHash
     End Sub
 
     Private Sub txtPassword_TextChanged(sender As Object, e As EventArgs) Handles txtPassword.TextChanged
-        txtPWHash.Text = Connection_Class.PW.EncryptPassword(sender.Text, My.Settings.PWWrapper)
+        txtPWHash.Text = Connection_Class.PW.EncryptPassword(sender.Text, My.Settings.Default.PWWrapper)
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles txtCopy.Click
