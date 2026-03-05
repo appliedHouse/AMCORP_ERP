@@ -801,8 +801,6 @@ Public Class frmMigrations_Amcorp
 
                 _DataView.RowFilter = "ChartofAccountID=" & _Row("ChartofAccountID").ToString & " AND CompanyUnitID=" & _Unit.ToString
 
-                Dim _NewRow As DataRow
-
                 If _DataView.Count = 0 Then
 
                     _Command.CommandText = "INSERT INTO [Bizztrax_Amcorp].[dbo].[tblChartAccount_CompanyUnit] VALUES (@COA, @Unit, @Company)"

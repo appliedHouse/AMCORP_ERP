@@ -206,7 +206,7 @@ Public Class frmSupplier
 
         Get_Data()                          ' Get / Fil Row from Text Box etc.
 
-        Dim _Message As String
+        Dim _Message As String = "---"
         Dim _HasError As Boolean = False
         Dim _SQLCommand As String = ""
         Dim _Row As DataRow = SQLCommandClass.SQLRow

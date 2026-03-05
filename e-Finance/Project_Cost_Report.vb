@@ -1,17 +1,11 @@
-﻿Imports System.Data.SqlClient
-Imports System.IO
+﻿Imports System.IO
 Imports Connection_Class
 Imports System.Windows.Forms
 Imports Microsoft.Office.Interop.Excel
-Imports Microsoft.ReportingServices.Rendering.ExcelRenderer
 Imports Excel = Microsoft.Office.Interop.Excel
 
 
 Public Class frmCostExpenses
-#Disable Warning CA1303 ' Do not pass literals as localized parameters
-#Disable Warning CA1305 ' Specify IFormatProvider
-
-
 
     Dim ExpenseSheet As String = "Expense Sheet"
 
