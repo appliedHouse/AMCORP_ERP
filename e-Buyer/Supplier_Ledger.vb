@@ -1,7 +1,7 @@
-﻿Imports System.Data
-Imports System.Collections
-Imports System.Collections.Generic
-Imports System.Data.SqlClient
+﻿Imports System.Collections.Generic
+
+
+
 
 Public Class frmSupplier_Ledger
 
@@ -80,6 +80,7 @@ Public Class frmSupplier_Ledger
         Dim _Report As New Connection_Class.Report_Parameters
         Dim _Parameters As New Dictionary(Of String, String)
         Dim _DataTable As DataTable
+
 
         _Report.ShowProperties = False                                               ' Show Properties when it call ShowParameters()
         _Report.CompanyID = cBoxCompany.SelectedValue
