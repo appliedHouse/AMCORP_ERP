@@ -36,8 +36,8 @@ Public Class frmJoinLedgers
 
 
         _Report.CompanyID = 1
-        _Report.CompanyName = My.Settings.CompanyName
-        _Report.CompanyAddress = My.Settings.CompanyAddress
+        _Report.CompanyName = My.Settings.Default.CompanyName
+        _Report.CompanyAddress = My.Settings.Default.CompanyAddress
 
         _Report.ReportHeading = String.Concat("Join Ledger ", cBoxSupplierJoin.Text)
         _Report.SQLProcedure = MyReportProcedure

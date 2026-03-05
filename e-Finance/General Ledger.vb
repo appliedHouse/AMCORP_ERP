@@ -35,7 +35,7 @@ Public Class frmGeneralLedger
         MyDataTable_Project = Get_DataTable(TableName_Project, Connection_Amcorp)
         MyDataTable_Company = Get_DataTable(TableName_Company, Connection_Amcorp)
 
-        dtFrom.Value = My.Settings.ReportFrom
+        dtFrom.Value = My.Settings.Default.ReportFrom
         dtTo.Value = Now
 
         MyRefresh()
@@ -70,10 +70,10 @@ Public Class frmGeneralLedger
         Dim _Parameters As New Dictionary(Of String, String)
         Dim _DataTable As DataTable
 
-        MyReport.DateFormatText = My.Settings.DateFormat
+        MyReport.DateFormatText = My.Settings.Default.DateFormat
         MyReport.DateFrom = dtFrom.Value
         MyReport.DateTo = dtTo.Value
-        MyReport.AmountFormat = My.Settings.AmountFormat
+        MyReport.AmountFormat = My.Settings.Default.AmountFormat
 
         MyReport.COAID1 = cboxCOA.SelectedValue
         MyReport.All_Projects = chkAllProjects.Checked
