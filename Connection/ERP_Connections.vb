@@ -7,16 +7,16 @@ Module ERP_Connections
     ' It Supplies the Amcorp ERP SQL connection 
 
     Public Function Connection_Master() As SqlConnection
-        Return Connection_Establish("192.168.0.5", "Master")
+        Return Connection_Establish("178.105.3.90", "Master")
     End Function
 
     Public Function Connection_Bizztrax() As SqlConnection
-        Return Connection_Establish("192.168.0.5", "Bizztrax")
+        Return Connection_Establish("178.105.3.90", "Bizztrax")
     End Function
 
 
     Public Function Connection_Amcorp() As SqlConnection
-        Return Connection_Establish("192.168.0.5", "Bizztrax_Amcorp")
+        Return Connection_Establish("178.105.3.90", "Bizztrax_Amcorp")
     End Function
 
 
@@ -24,7 +24,7 @@ Module ERP_Connections
         ' 29-June-2021
         'Provider = SQLOLEDB.1;;Persist Security Info=True;Use Procedure For Prepare=1;Auto Translate=True;Packet Size=4096;Workstation ID=ACCOUNTS-PC;Use Encryption For Data=False;Tag With column collation When possible=False
 
-        Dim ConnString = "Data Source=" + _DB_Name + ";Initial Catalog=" + _Catlog + " ;User ID=sa;Password=efrosoft97;"
+        Dim ConnString = "Data Source=" + _DB_Name + ";Initial Catalog=" + _Catlog + " ;User ID=sa;Password=RLrKbsT{Lbi443;"
         Dim _SQLConnection = New SqlConnection(ConnString)
 
         Try
