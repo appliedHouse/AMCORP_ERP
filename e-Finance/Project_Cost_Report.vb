@@ -1,11 +1,14 @@
-﻿Imports System.Data.OleDb
+﻿Imports System.Data
+Imports System.Data.OleDb
 Imports System.Data.SqlClient
+Imports System.Diagnostics
 Imports System.IO
 Imports System.Runtime.InteropServices
+Imports System.Security.Cryptography.X509Certificates
 Imports System.Windows.Forms
 Imports Connection_Class
 Imports ExcelDataReader
-Imports System.Data
+Imports ExcelDataReader.Exceptions
 Imports Microsoft.Office.Interop.Excel
 Imports Microsoft.ReportingServices.Rendering.ExcelRenderer
 Imports Excel = Microsoft.Office.Interop.Excel
@@ -85,13 +88,50 @@ Public Class frmCostExpenses
         End If
 
         proBar.Visible = True
-        proBar.Minimum = 0
-        proBar.Maximum = _DataTable.Rows.Count
+        proBar.Style = ProgressBarStyle.Marquee   ' Indeterminate progress – bulk ops are too fast for step‑by‑step
+        lblMessage.Text = "Preparing data for bulk update..."
 
-        Dim _Sub_Head As Integer = 0
-        Dim _TranDtlID As Integer = 0
-        Dim _Cost_Head As Integer = 0
-        Dim _Cost_COA As Integer = 0
+        ' ----- Build staging DataTable (same structure as temporary table) -----
+        Dim stagingTable As New System.Data.DataTable()
+        stagingTable.Columns.Add("TranDtlID", GetType(Integer))
+        stagingTable.Columns.Add("Heading", GetType(Integer))
+        stagingTable.Columns.Add("ExpenseID", GetType(Integer))
+        stagingTable.Columns.Add("SubHeading", GetType(Integer))   ' will be DBNull if not used
+        stagingTable.Columns.Add("PostingType", GetType(String))
+
+        lblMessage.Text = $"Temporary Table is being prepared."
+
+        Dim _TotalRecords = _DataTable.Rows
+        Dim i As Integer = 1
+
+        For Each row As DataRow In _DataTable.Rows
+            Dim tranDtlId As Integer
+            If Not Integer.TryParse(row("TranDtlID").ToString(), tranDtlId) OrElse tranDtlId = 0 OrElse tranDtlId = -1 Then
+                Continue For   ' skip invalid/zero IDs
+            End If
+
+            lblMessage.Text = $"Total Record Process {i}"
+            i=i+1
+
+            Dim heading As Integer = Integer.Parse(row("CostHead").ToString())
+            Dim expenseId As Integer = Integer.Parse(row("CostCOA").ToString())
+            Dim subHeading As Integer? = Nothing
+            If rb_Thar.Checked Then
+                subHeading = Integer.Parse(row("Sub-Head").ToString())
+            End If
+
+            Dim postingType As String = row("PostingType").ToString()
+
+            stagingTable.Rows.Add(tranDtlId, heading, expenseId,
+                              If(subHeading.HasValue, subHeading.Value, DBNull.Value),
+                              postingType)
+        Next
+
+        If stagingTable.Rows.Count = 0 Then
+            lblMessage.Text = "No valid records found (all TranDtlID zero or missing)."
+            proBar.Visible = False
+            Return
+        End If
 
         Using conn As SqlConnection = Connection_Amcorp()
             If conn.State <> ConnectionState.Open Then
@@ -100,84 +140,101 @@ Public Class frmCostExpenses
 
             Using trans As SqlTransaction = conn.BeginTransaction()
                 Try
-                    Dim sqlInvoiceText, sqlLedgerText As String
-                    If rb_Thar.Checked Then
-                        sqlInvoiceText = "UPDATE [tblDetailPurchaseInvoice] SET [ExpenseTranID] = @Heading, [ExpenseID] = @ExpenseID, [ExpenseTranDtlID] = @SubHeading WHERE [TranDtlID] = @TranDtlID"
-                        sqlLedgerText = "UPDATE [tblTranDetail] SET [SNo] = @Heading, [TaxDeductionID] = @ExpenseID, [ChequeSeriesTranID] = @SubHeading WHERE [TranDtlID] = @TranDtlID"
-                    Else
-                        sqlInvoiceText = "UPDATE [tblDetailPurchaseInvoice] SET [ExpenseTranID] = @Heading, [ExpenseID] = @ExpenseID WHERE [TranDtlID] = @TranDtlID"
-                        sqlLedgerText = "UPDATE [tblTranDetail] SET [SNo] = @Heading, [TaxDeductionID] = @ExpenseID WHERE [TranDtlID] = @TranDtlID"
-                    End If
-
-                    Using cmdInvoice As New SqlCommand(sqlInvoiceText, conn, trans),
-                      cmdLedger As New SqlCommand(sqlLedgerText, conn, trans)
-
-                        ' --- Add parameters to BOTH commands ---
-                        ' For cmdInvoice
-                        cmdInvoice.Parameters.Add("@TranDtlID", SqlDbType.Int)
-                        cmdInvoice.Parameters.Add("@Heading", SqlDbType.Int)
-                        cmdInvoice.Parameters.Add("@ExpenseID", SqlDbType.Int)
-                        If rb_Thar.Checked Then
-                            cmdInvoice.Parameters.Add("@SubHeading", SqlDbType.Int)
-                        End If
-
-                        ' For cmdLedger (same parameters)
-                        cmdLedger.Parameters.Add("@TranDtlID", SqlDbType.Int)
-                        cmdLedger.Parameters.Add("@Heading", SqlDbType.Int)
-                        cmdLedger.Parameters.Add("@ExpenseID", SqlDbType.Int)
-                        If rb_Thar.Checked Then
-                            cmdLedger.Parameters.Add("@SubHeading", SqlDbType.Int)
-                        End If
-
-                        Dim rowIndex As Integer = 0
-                        For Each row As DataRow In _DataTable.Rows
-                            rowIndex += 1
-                            _Sub_Head = 0
-                            _TranDtlID = Integer.Parse(row("TranDtlID").ToString())
-
-                            ' Skip row if TranDtlID is 0 instead of aborting the whole process
-                            If _TranDtlID = 0 Then Continue For
-
-                            _Cost_Head = Integer.Parse(row("CostHead").ToString())
-                            _Cost_COA = Integer.Parse(row("CostCOA").ToString())
-
-                            If rb_Thar.Checked Then
-                                _Sub_Head = Integer.Parse(row("Sub-Head").ToString())
-                            End If
-
-                            Dim _PostingType = row("PostingType").ToString()
-                            Dim affected As Integer = 0
-
-                            Select Case _PostingType
-                                Case "Purchase Invoice"
-                                    cmdInvoice.Parameters("@TranDtlID").Value = _TranDtlID
-                                    cmdInvoice.Parameters("@Heading").Value = _Cost_Head
-                                    cmdInvoice.Parameters("@ExpenseID").Value = _Cost_COA
-                                    If rb_Thar.Checked Then
-                                        cmdInvoice.Parameters("@SubHeading").Value = _Sub_Head
-                                    End If
-                                    affected = cmdInvoice.ExecuteNonQuery()
-
-                                Case "Supplier Debit Note", "Supplier Credit Note", "Accounts"
-                                    cmdLedger.Parameters("@TranDtlID").Value = _TranDtlID
-                                    cmdLedger.Parameters("@Heading").Value = _Cost_Head
-                                    cmdLedger.Parameters("@ExpenseID").Value = _Cost_COA
-                                    If rb_Thar.Checked Then
-                                        cmdLedger.Parameters("@SubHeading").Value = _Sub_Head
-                                    End If
-                                    affected = cmdLedger.ExecuteNonQuery()
-                            End Select
-
-                            ' Update progress
-                            Dim percent = (rowIndex / _DataTable.Rows.Count) * 100
-                            lblMessage.Text = $"Record {rowIndex} of {_DataTable.Rows.Count} | {_PostingType} | {percent:N2}%"
-                            proBar.Value = rowIndex
-                            System.Windows.Forms.Application.DoEvents()
-                        Next
+                    ' ----- 1. Create temporary table -----
+                    Dim createTempSql = "
+                    CREATE TABLE #TempUpdates (
+                        TranDtlID INT NOT NULL,
+                        Heading INT NOT NULL,
+                        ExpenseID INT NOT NULL,
+                        SubHeading INT NULL,
+                        PostingType NVARCHAR(50) NOT NULL
+                    );"
+                    Using cmd As New SqlCommand(createTempSql, conn, trans)
+                        cmd.ExecuteNonQuery()
                     End Using
 
+                    ' ----- 2. Bulk copy staging data into temp table -----
+                    Using bulk As New SqlBulkCopy(conn, SqlBulkCopyOptions.Default, trans)
+                        bulk.DestinationTableName = "#TempUpdates"
+                        bulk.BatchSize = 1000
+                        bulk.WriteToServer(stagingTable)
+                    End Using
+
+                    lblMessage.Text = $"Updating {stagingTable.Rows.Count} records in bulk..."
+
+                    ' ----- 3. Perform set‑based updates -----
+                    If rb_Thar.Checked Then
+                        ' Update Purchase Invoice table (ExpenseTranDtlID included)
+                        Dim sqlInvoice = "
+                        UPDATE pi
+                        SET pi.ExpenseTranID = t.Heading,
+                            pi.ExpenseID = t.ExpenseID,
+                            pi.ExpenseTranDtlID = t.SubHeading
+                        FROM tblDetailPurchaseInvoice pi
+                        INNER JOIN #TempUpdates t ON pi.TranDtlID = t.TranDtlID
+                        WHERE t.PostingType = 'Purchase Invoice'"
+
+                        Using cmd As New SqlCommand(sqlInvoice, conn, trans)
+                            cmd.ExecuteNonQuery()
+                        End Using
+
+                        ' Update Ledger table (ChequeSeriesTranID included)
+                        Dim sqlLedger = "
+                        UPDATE ld
+                        SET ld.SNo = t.Heading,
+                            ld.TaxDeductionID = t.ExpenseID,
+                            ld.ChequeSeriesTranID = t.SubHeading
+                        FROM tblTranDetail ld
+                        INNER JOIN #TempUpdates t ON ld.TranDtlID = t.TranDtlID
+                        WHERE t.PostingType IN ('Supplier Debit Note', 'Supplier Credit Note', 'Accounts')"
+
+                        Using cmd As New SqlCommand(sqlLedger, conn, trans)
+                            cmd.ExecuteNonQuery()
+                        End Using
+                    Else
+                        ' Without SubHeading
+                        Dim sqlInvoice = "
+                        UPDATE pi
+                        SET pi.ExpenseTranID = t.Heading,
+                            pi.ExpenseID = t.ExpenseID
+                        FROM tblDetailPurchaseInvoice pi
+                        INNER JOIN #TempUpdates t ON pi.TranDtlID = t.TranDtlID
+                        WHERE t.PostingType = 'Purchase Invoice'"
+
+                        Using cmd As New SqlCommand(sqlInvoice, conn, trans)
+                            cmd.ExecuteNonQuery()
+                        End Using
+
+                        Dim sqlLedger = "
+                        UPDATE ld
+                        SET ld.SNo = t.Heading,
+                            ld.TaxDeductionID = t.ExpenseID
+                        FROM tblTranDetail ld
+                        INNER JOIN #TempUpdates t ON ld.TranDtlID = t.TranDtlID
+                        WHERE t.PostingType IN ('Supplier Debit Note', 'Supplier Credit Note', 'Accounts')"
+
+                        Using cmd As New SqlCommand(sqlLedger, conn, trans)
+                            cmd.ExecuteNonQuery()
+                        End Using
+                    End If
+
+                    ' ----- 4. Commit transaction -----
                     trans.Commit()
-                    lblMessage.Text = $"Successfully updated {_DataTable.Rows.Count} records."
+                    lblMessage.Text = $"Successfully updated {stagingTable.Rows.Count} records in bulk."
+
+
+                    MessageBox.Show("Open Excel File.")
+
+                    If IO.File.Exists(ExcelFile) Then
+                        Try
+                            Process.Start(ExcelFile)
+                        Catch ex As Exception
+                            MsgBox("Cannot open Excel file: " & ex.Message, MsgBoxStyle.Exclamation, "Error")
+                        End Try
+                    Else
+                        MsgBox("Excel file not found." & vbCrLf & ExcelFile, MsgBoxStyle.Exclamation, "File Not Found")
+                    End If
+
                 Catch ex As Exception
                     trans.Rollback()
                     lblMessage.Text = $"ERROR: {ex.Message}"
@@ -186,27 +243,11 @@ Public Class frmCostExpenses
             End Using
         End Using
 
+        proBar.Style = ProgressBarStyle.Blocks
+        proBar.Value = proBar.Maximum   ' set to 100% for appearance
         proBar.Visible = False
     End Sub
 
-
-    Private Function GetExcelDataTable(excelPath As String, sheetName As String) As System.Data.DataTable
-        ' Register code pages for encoding support (if not already done elsewhere)
-        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance)
-
-        Using stream = File.Open(excelPath, FileMode.Open, FileAccess.Read)
-            Using reader = ExcelReaderFactory.CreateReader(stream)
-                Dim config = New ExcelDataSetConfiguration With {
-                    .ConfigureDataTable = Function(tableReader) New ExcelDataTableConfiguration With {
-                        .UseHeaderRow = True   ' First row becomes column names
-                    }
-                }
-                Dim result = reader.AsDataSet(config)
-                ' Return the DataTable for the requested sheet name (e.g., "Data")
-                Return result.Tables(sheetName)
-            End Using
-        End Using
-    End Function
 
     Private Function GetExcelDataTable(excelPath As String, sheetName As String, tableName As String) As System.Data.DataTable
         Dim xlApp As New Excel.Application
