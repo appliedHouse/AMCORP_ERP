@@ -1,10 +1,15 @@
-﻿Imports System.Data.SqlClient
+﻿Imports System.Data.OleDb
+Imports System.Data.SqlClient
 Imports System.IO
-Imports Connection_Class
+Imports System.Runtime.InteropServices
 Imports System.Windows.Forms
+Imports Connection_Class
+Imports ExcelDataReader
+Imports System.Data
 Imports Microsoft.Office.Interop.Excel
 Imports Microsoft.ReportingServices.Rendering.ExcelRenderer
 Imports Excel = Microsoft.Office.Interop.Excel
+Imports OleDb = System.Data.OleDb
 
 
 Public Class frmCostExpenses
@@ -65,206 +70,189 @@ Public Class frmCostExpenses
 
 
     Private Sub btnProceed_Click(sender As Object, e As EventArgs) Handles btnProceed.Click
+        If Not File.Exists(ExcelFile) Then
+            MsgBox("Excel file does NOT exist.")
+            Return
+        End If
 
-        Dim _Today As DateTime = Today
-        Dim _Expire As DateTime = New Date(2027, 2, 28)
+        If Today >= New Date(2027, 2, 28) Then Return
 
+        lblMessage.Text = $"{ExcelFile} is being loaded."
+        Dim _DataTable = GetExcelDataTable(ExcelFile, "Data", "Table_Data")
+        If _DataTable Is Nothing OrElse _DataTable.Rows.Count = 0 Then
+            lblMessage.Text = "No data found."
+            Return
+        End If
 
+        proBar.Visible = True
+        proBar.Minimum = 0
+        proBar.Maximum = _DataTable.Rows.Count
 
-        ' Expiry Class
-        'Dim table_Name As String = "[BizzTrax].[dbo].[tblReason]"
-        'Dim Exp_Table As Data.DataTable = Get_DataTable(table_Name, Connection_Bizztrax)
-        'Dim _View As DataView = New DataView(Exp_Table)
-        'Dim _Row As DataRow
-        '_View.RowFilter = "ReasonID=5"
-        'If _View.Count = 1 Then
-        '    _Row = _View(0).Row
-        'End If
+        Dim _Sub_Head As Integer = 0
+        Dim _TranDtlID As Integer = 0
+        Dim _Cost_Head As Integer = 0
+        Dim _Cost_COA As Integer = 0
 
-        'If _Row("Active") = False Then
-        '    Return
-        'End If
-
-        If _Today < _Expire Then
-            If Not File.Exists(ExcelFile) Then
-                MsgBox("Excel file is NOT Exist")
-                Return                                              '   Exit from here if file not exist.
+        Using conn As SqlConnection = Connection_Amcorp()
+            If conn.State <> ConnectionState.Open Then
+                conn.Open()
             End If
 
-            Dim Close_at_end As Boolean = True
-
-            lblMessage.Text = "File is being loaded."
-
-            Dim xlApp As New Excel.Application
-            Dim xlWorkBooks As Excel.Workbook
-            Dim xlWorkSheet As Excel.Worksheet
-
-            xlWorkBooks = xlApp.Workbooks.Open(ExcelFile)
-            xlWorkSheet = xlWorkBooks.Worksheets("Data")
-
-#Region "SQL Command"
-
-            Dim _SQLCommandLedgers As New SqlCommand("", Connection_Amcorp)
-            Dim _SQLCommandInvoice As New SqlCommand("", Connection_Amcorp)
-            Dim _SQLCommandNotes As New SqlCommand("", Connection_Amcorp)
-
-            If rb_Thar.Checked Then
-
-                _SQLCommandLedgers.CommandText = "UPDATE [tblTranDetail] SET [SNo] = @Heading, [TaxDeductionID] = @ExpenseID, [ChequeSeriesTranID] = @SubHeading WHERE [TranDtlID] = @TranDtlID"
-                _SQLCommandInvoice.CommandText = "UPDATE [tblDetailPurchaseInvoice] SET [ExpenseTranID] = @Heading, [ExpenseID] = @ExpenseID, [ExpenseTranDtlID] = @SubHeading WHERE [TranDtlID] = @TranDtlID"
-
-                _SQLCommandLedgers.Parameters.AddWithValue("@TranDtlID", 0)
-                _SQLCommandLedgers.Parameters.AddWithValue("@Heading", 0)
-                _SQLCommandLedgers.Parameters.AddWithValue("@ExpenseID", 0)
-                _SQLCommandLedgers.Parameters.AddWithValue("@SubHeading", 0)
-
-                _SQLCommandInvoice.Parameters.AddWithValue("@TranDtlID", 0)
-                _SQLCommandInvoice.Parameters.AddWithValue("@Heading", 0)
-                _SQLCommandInvoice.Parameters.AddWithValue("@ExpenseID", 0)
-                _SQLCommandInvoice.Parameters.AddWithValue("@SubHeading", 0)
-
-            Else
-
-                _SQLCommandLedgers.CommandText = "UPDATE [tblTranDetail] SET [SNo] = @Heading, [TaxDeductionID] = @ExpenseID WHERE [TranDtlID] = @TranDtlID"
-                _SQLCommandInvoice.CommandText = "UPDATE [tblDetailPurchaseInvoice] SET [ExpenseTranID] = @Heading, [ExpenseID] = @ExpenseID WHERE [TranDtlID] = @TranDtlID"
-
-                _SQLCommandLedgers.Parameters.AddWithValue("@TranDtlID", 0)
-                _SQLCommandLedgers.Parameters.AddWithValue("@Heading", 0)
-                _SQLCommandLedgers.Parameters.AddWithValue("@ExpenseID", 0)
-
-                _SQLCommandInvoice.Parameters.AddWithValue("@TranDtlID", 0)
-                _SQLCommandInvoice.Parameters.AddWithValue("@Heading", 0)
-                _SQLCommandInvoice.Parameters.AddWithValue("@ExpenseID", 0)
-
-            End If
-
-
-#End Region
-
-
-            Dim Table_Range As ListObject = xlWorkSheet.ListObjects("Table_Data")
-            Dim Body_Range As Range = Table_Range.DataBodyRange
-
-            Dim Total_Transactions As Integer = Table_Range.ListRows.Count
-            Dim StartCell As Integer = 13
-            Dim StartTransaction As Integer = 13
-
-            proBar.Visible = True
-            proBar.Minimum = 0
-            proBar.Maximum = Total_Transactions
-
-            Dim _Cost_Head As Integer
-            Dim _Sub_Head As Integer
-            Dim _Cost_COA As Integer
-            Dim _TranDtlID As Integer
-            Dim _PostingType As String
-            Dim MyTitle As String = ""
-            Dim _Result As Integer
-
-            Dim Tran_Index As Integer = Table_Range.ListColumns("TranDtlID").Index
-            Dim Head_Index As Integer = Table_Range.ListColumns("CostHead").Index
-            Dim COA_Index As Integer = Table_Range.ListColumns("CostCOA").Index
-            Dim Type_Index As Integer = Table_Range.ListColumns("PostingType").Index
-            Dim SubHead_Index As Integer
-
-            If (COA_Index = -1) Then
-                Return
-            End If
-            If rb_Thar.Checked Then
-                    SubHead_Index = Table_Range.ListColumns("Sub-Head").Index
-                End If
-
-                For i = 1 To Total_Transactions
-
-                    _TranDtlID = Convert.ToInt32(Table_Range.DataBodyRange(i, Tran_Index).Value)
-                    _Cost_Head = Convert.ToInt32(Table_Range.DataBodyRange(i, Head_Index).Value)
-                    _Cost_COA = Convert.ToInt32(Table_Range.DataBodyRange(i, COA_Index).Value)
+            Using trans As SqlTransaction = conn.BeginTransaction()
+                Try
+                    Dim sqlInvoiceText, sqlLedgerText As String
                     If rb_Thar.Checked Then
-                        _Sub_Head = Convert.ToInt32(Table_Range.DataBodyRange(i, SubHead_Index).Value)
+                        sqlInvoiceText = "UPDATE [tblDetailPurchaseInvoice] SET [ExpenseTranID] = @Heading, [ExpenseID] = @ExpenseID, [ExpenseTranDtlID] = @SubHeading WHERE [TranDtlID] = @TranDtlID"
+                        sqlLedgerText = "UPDATE [tblTranDetail] SET [SNo] = @Heading, [TaxDeductionID] = @ExpenseID, [ChequeSeriesTranID] = @SubHeading WHERE [TranDtlID] = @TranDtlID"
+                    Else
+                        sqlInvoiceText = "UPDATE [tblDetailPurchaseInvoice] SET [ExpenseTranID] = @Heading, [ExpenseID] = @ExpenseID WHERE [TranDtlID] = @TranDtlID"
+                        sqlLedgerText = "UPDATE [tblTranDetail] SET [SNo] = @Heading, [TaxDeductionID] = @ExpenseID WHERE [TranDtlID] = @TranDtlID"
                     End If
-                    _PostingType = Table_Range.DataBodyRange(i, Type_Index).Value.ToString
 
-                    If _PostingType = "Purchase Invoice" Then
+                    Using cmdInvoice As New SqlCommand(sqlInvoiceText, conn, trans),
+                      cmdLedger As New SqlCommand(sqlLedgerText, conn, trans)
 
-                        If (_TranDtlID > 0) Then
-                            _SQLCommandInvoice.Parameters("@TrandtlID").Value = _TranDtlID
-                            _SQLCommandInvoice.Parameters("@Heading").Value = _Cost_Head
-                            _SQLCommandInvoice.Parameters("@ExpenseID").Value = _Cost_COA
+                        ' --- Add parameters to BOTH commands ---
+                        ' For cmdInvoice
+                        cmdInvoice.Parameters.Add("@TranDtlID", SqlDbType.Int)
+                        cmdInvoice.Parameters.Add("@Heading", SqlDbType.Int)
+                        cmdInvoice.Parameters.Add("@ExpenseID", SqlDbType.Int)
+                        If rb_Thar.Checked Then
+                            cmdInvoice.Parameters.Add("@SubHeading", SqlDbType.Int)
+                        End If
+
+                        ' For cmdLedger (same parameters)
+                        cmdLedger.Parameters.Add("@TranDtlID", SqlDbType.Int)
+                        cmdLedger.Parameters.Add("@Heading", SqlDbType.Int)
+                        cmdLedger.Parameters.Add("@ExpenseID", SqlDbType.Int)
+                        If rb_Thar.Checked Then
+                            cmdLedger.Parameters.Add("@SubHeading", SqlDbType.Int)
+                        End If
+
+                        Dim rowIndex As Integer = 0
+                        For Each row As DataRow In _DataTable.Rows
+                            rowIndex += 1
+                            _Sub_Head = 0
+                            _TranDtlID = Integer.Parse(row("TranDtlID").ToString())
+
+                            ' Skip row if TranDtlID is 0 instead of aborting the whole process
+                            If _TranDtlID = 0 Then Continue For
+
+                            _Cost_Head = Integer.Parse(row("CostHead").ToString())
+                            _Cost_COA = Integer.Parse(row("CostCOA").ToString())
+
                             If rb_Thar.Checked Then
-                                _SQLCommandInvoice.Parameters("@SubHeading").Value = _Sub_Head
+                                _Sub_Head = Integer.Parse(row("Sub-Head").ToString())
                             End If
 
-                            _Result = _SQLCommandInvoice.ExecuteNonQuery()
+                            Dim _PostingType = row("PostingType").ToString()
+                            Dim affected As Integer = 0
 
-                            If (_Result > 1) Then
-                                MsgBox("SQL Query hit more than 1 record" + _Result.ToString)
-                            End If
+                            Select Case _PostingType
+                                Case "Purchase Invoice"
+                                    cmdInvoice.Parameters("@TranDtlID").Value = _TranDtlID
+                                    cmdInvoice.Parameters("@Heading").Value = _Cost_Head
+                                    cmdInvoice.Parameters("@ExpenseID").Value = _Cost_COA
+                                    If rb_Thar.Checked Then
+                                        cmdInvoice.Parameters("@SubHeading").Value = _Sub_Head
+                                    End If
+                                    affected = cmdInvoice.ExecuteNonQuery()
 
-                            MyTitle = String.Concat("Transaction ID = ", _TranDtlID, " | Heading =", _Cost_Head, " | Expense ID =", _Cost_COA, " | SQL Updated ", _Result, " Record(s) ")
-                        Else
-                            MsgBox("Transaction ID is Zero")
-                            Stop
-                        End If
+                                Case "Supplier Debit Note", "Supplier Credit Note", "Accounts"
+                                    cmdLedger.Parameters("@TranDtlID").Value = _TranDtlID
+                                    cmdLedger.Parameters("@Heading").Value = _Cost_Head
+                                    cmdLedger.Parameters("@ExpenseID").Value = _Cost_COA
+                                    If rb_Thar.Checked Then
+                                        cmdLedger.Parameters("@SubHeading").Value = _Sub_Head
+                                    End If
+                                    affected = cmdLedger.ExecuteNonQuery()
+                            End Select
 
-                    End If
+                            ' Update progress
+                            Dim percent = (rowIndex / _DataTable.Rows.Count) * 100
+                            lblMessage.Text = $"Record {rowIndex} of {_DataTable.Rows.Count} | {_PostingType} | {percent:N2}%"
+                            proBar.Value = rowIndex
+                            System.Windows.Forms.Application.DoEvents()
+                        Next
+                    End Using
 
-                    If (_PostingType = "Supplier Debit Note" Or _PostingType = "Supplier Credit Note") Then
+                    trans.Commit()
+                    lblMessage.Text = $"Successfully updated {_DataTable.Rows.Count} records."
+                Catch ex As Exception
+                    trans.Rollback()
+                    lblMessage.Text = $"ERROR: {ex.Message}"
+                    MsgBox($"Transaction rolled back: {ex.Message}")
+                End Try
+            End Using
+        End Using
 
-                        _SQLCommandLedgers.Parameters("@TranDtlID").Value = _TranDtlID
-                        _SQLCommandLedgers.Parameters("@Heading").Value = _Cost_Head
-                        _SQLCommandLedgers.Parameters("@ExpenseID").Value = _Cost_COA
-                        If rb_Thar.Checked Then
-                            _SQLCommandLedgers.Parameters("@SubHeading").Value = _Sub_Head
-                        End If
-
-
-                        _Result = _SQLCommandLedgers.ExecuteNonQuery()
-
-                        MyTitle = String.Concat("Transaction ID = ", _TranDtlID, " | Heading =", _Cost_Head, " | Expense ID =", _Cost_COA, " | SQL Updated ", _Result, " Record(s) ")
-
-                    End If
-
-                    If _PostingType = "Accounts" Then
-
-                        _SQLCommandLedgers.Parameters("@TranDtlID").Value = _TranDtlID
-                        _SQLCommandLedgers.Parameters("@Heading").Value = _Cost_Head
-                        _SQLCommandLedgers.Parameters("@ExpenseID").Value = _Cost_COA
-
-                        If rb_Thar.Checked Then
-                            _SQLCommandLedgers.Parameters("@SubHeading").Value = _Sub_Head
-                        End If
-                        _Result = _SQLCommandLedgers.ExecuteNonQuery()
-
-                        MyTitle = String.Concat("Transaction ID = ", _TranDtlID, " | Heading =", _Cost_Head, " | Expense ID =", _Cost_COA, " | SQL Updated ", _Result, " Record(s) ")
-
-                    End If
-
-                    lblMessage.Text = MyTitle
-                    proBar.Value = i
-
-                Next
-
-                lblMessage.Text = String.Concat("TOTAL Number of Data Records ", Total_Transactions)
-
-                'xlWorkBooks.Save()
-
-                xlApp.Visible = True
-
-                If Close_at_end Then
-                    proBar.Visible = False
-                    '    'xlWorkBooks.Close()
-                    '    'xlApp.Quit()
-                    xlWorkSheet = Nothing
-                    xlWorkBooks = Nothing
-                    xlApp = Nothing
-                End If
-
-            Else
-                '    Dim cmdText = "UPDATE " + table_Name + " SET Active=1 WHERE ReasonID = 5"
-                'Dim command As SqlCommand = New SqlCommand(cmdText, Connection_Bizztrax)
-                'command.ExecuteNonQuery()
-
-            End If
+        proBar.Visible = False
     End Sub
+
+
+    Private Function GetExcelDataTable(excelPath As String, sheetName As String) As System.Data.DataTable
+        ' Register code pages for encoding support (if not already done elsewhere)
+        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance)
+
+        Using stream = File.Open(excelPath, FileMode.Open, FileAccess.Read)
+            Using reader = ExcelReaderFactory.CreateReader(stream)
+                Dim config = New ExcelDataSetConfiguration With {
+                    .ConfigureDataTable = Function(tableReader) New ExcelDataTableConfiguration With {
+                        .UseHeaderRow = True   ' First row becomes column names
+                    }
+                }
+                Dim result = reader.AsDataSet(config)
+                ' Return the DataTable for the requested sheet name (e.g., "Data")
+                Return result.Tables(sheetName)
+            End Using
+        End Using
+    End Function
+
+    Private Function GetExcelDataTable(excelPath As String, sheetName As String, tableName As String) As System.Data.DataTable
+        Dim xlApp As New Excel.Application
+        Dim xlWorkBook As Excel.Workbook = Nothing
+        Dim xlWorkSheet As Excel.Worksheet = Nothing
+        Dim dt As New System.Data.DataTable()
+
+        Try
+            xlWorkBook = xlApp.Workbooks.Open(excelPath)
+            xlWorkSheet = xlWorkBook.Worksheets(sheetName)
+            Dim listObject As Excel.ListObject = xlWorkSheet.ListObjects(tableName) ' "Table_Data"
+            Dim dataRange As Excel.Range = listObject.DataBodyRange
+
+            If dataRange Is Nothing Then Return dt
+
+            ' Get column headers from the header row range
+            Dim headerRange As Excel.Range = listObject.HeaderRowRange
+            For col = 1 To headerRange.Columns.Count
+                dt.Columns.Add(headerRange.Cells(1, col).Value2.ToString())
+            Next
+
+            ' Get all values as a 2D array (single COM call – FAST)
+            Dim values As Object = dataRange.Value2
+            Dim rowCount As Integer = dataRange.Rows.Count
+            Dim colCount As Integer = dataRange.Columns.Count
+
+            For i As Integer = 1 To rowCount
+                Dim newRow = dt.NewRow()
+                For j As Integer = 1 To colCount
+                    newRow(j - 1) = values(i, j)
+                Next
+                dt.Rows.Add(newRow)
+            Next
+
+            Return dt
+
+        Finally
+            If xlWorkBook IsNot Nothing Then
+                xlWorkBook.Close(False)
+                Marshal.ReleaseComObject(xlWorkBook)
+            End If
+            If xlApp IsNot Nothing Then
+                xlApp.Quit()
+                Marshal.ReleaseComObject(xlApp)
+            End If
+        End Try
+    End Function
 
 End Class

@@ -19,8 +19,16 @@ Module ERP_Connections
         Return Connection_Establish("178.105.3.90", "Bizztrax_Amcorp")
     End Function
 
-
     Public Function Connection_Establish(_DB_Name As String, _Catlog As String) As SqlConnection
+        Dim ConnString = "Data Source=" + _DB_Name + ";Initial Catalog=" + _Catlog + ";User ID=sa;Password=RLrKbsT{Lbi443;"
+        Dim _SQLConnection As New SqlConnection(ConnString)
+        _SQLConnection.Open()   ' Let exception bubble up to caller
+        Return _SQLConnection
+    End Function
+
+
+    'Depreciated....
+    Public Function __Connection_Establish(_DB_Name As String, _Catlog As String) As SqlConnection
         ' 29-June-2021
         'Provider = SQLOLEDB.1;;Persist Security Info=True;Use Procedure For Prepare=1;Auto Translate=True;Packet Size=4096;Workstation ID=ACCOUNTS-PC;Use Encryption For Data=False;Tag With column collation When possible=False
 
