@@ -1,23 +1,24 @@
 ﻿Imports System.IO
 Imports System.Windows.Forms
+Imports System.Configuration
 
 Module ERP_Connections
 
     '02-04-2019
     ' It Supplies the Amcorp ERP SQL connection 
 
-    Public Function Connection_Master() As SqlConnection
-        Return Connection_Establish("178.105.3.90", "Master")
-    End Function
+    'Public Function Connection_Master() As SqlConnection
+    '    Return Connection_Establish("178.105.3.90", "Master")
+    'End Function
 
-    Public Function Connection_Bizztrax() As SqlConnection
-        Return Connection_Establish("178.105.3.90", "Bizztrax")
-    End Function
+    'Public Function Connection_Bizztrax() As SqlConnection
+    '    Return Connection_Establish("178.105.3.90", "Bizztrax")
+    'End Function
 
 
-    Public Function Connection_Amcorp() As SqlConnection
-        Return Connection_Establish("178.105.3.90", "Bizztrax_Amcorp")
-    End Function
+    'Public Function Connection_Amcorp() As SqlConnection
+    '    Return Connection_Establish("178.105.3.90", "Bizztrax_Amcorp")
+    'End Function
 
     Public Function Connection_Establish(_DB_Name As String, _Catlog As String) As SqlConnection
         Dim ConnString = "Data Source=" + _DB_Name + ";Initial Catalog=" + _Catlog + ";User ID=sa;Password=RLrKbsT{Lbi443;"
@@ -26,6 +27,26 @@ Module ERP_Connections
         Return _SQLConnection
     End Function
 
+    Public Function Connection_Master() As SqlConnection
+        Dim ConnString As String = ConfigurationManager.ConnectionStrings("MasterConnection").ConnectionString
+        Dim _SQLConnection As New SqlConnection(ConnString)
+        _SQLConnection.Open()   ' Let exception bubble up to caller
+        Return _SQLConnection
+    End Function
+
+    Public Function Connection_Bizztrax() As SqlConnection
+        Dim ConnString As String = ConfigurationManager.ConnectionStrings("BizztraxConnection").ConnectionString
+        Dim _SQLConnection As New SqlConnection(ConnString)
+        _SQLConnection.Open()   ' Let exception bubble up to caller
+        Return _SQLConnection
+    End Function
+
+    Public Function Connection_Amcorp() As SqlConnection
+        Dim ConnString As String = ConfigurationManager.ConnectionStrings("BizztraxAmcorpConnection").ConnectionString
+        Dim _SQLConnection As New SqlConnection(ConnString)
+        _SQLConnection.Open()   ' Let exception bubble up to caller
+        Return _SQLConnection
+    End Function
 
     'Depreciated....
     Public Function __Connection_Establish(_DB_Name As String, _Catlog As String) As SqlConnection
